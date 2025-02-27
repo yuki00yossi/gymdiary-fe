@@ -83,15 +83,25 @@ export function WeightCalendarView({
               DayContent: ({ date }) => {
                 const dateStr = format(date, "yyyy-MM-dd");
                 const data = weightData[dateStr];
+                const isSelected =
+                  dateStr === format(selectedDate, "yyyy-MM-dd");
                 return (
                   <div className="h-14 w-full flex flex-col items-center justify-start py-1">
                     <span className="text-sm mb-1">{date.getDate()}</span>
                     {data && (
                       <div className="weight-data text-[0.65rem] leading-tight text-center">
-                        <div className="text-primary font-medium mb-0.5">
+                        <div
+                          className={`text-primary font-medium mb-0.5 ${
+                            isSelected && "text-white"
+                          }`}
+                        >
                           {data.weight}Kg
                         </div>
-                        <div className="text-muted-foreground">
+                        <div
+                          className={`text-muted-foreground ${
+                            isSelected && "text-white/80"
+                          }`}
+                        >
                           {data.bodyFat}%
                         </div>
                       </div>

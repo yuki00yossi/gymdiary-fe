@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <SidebarProvider>
-        <div className="flex h-screen overflow-hidden">
+        <div className="flex min-h-screen">
           <div className="hidden md:block">
             <AppSidebar />
           </div>

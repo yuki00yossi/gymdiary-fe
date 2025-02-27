@@ -19,39 +19,42 @@ export default function WeightPage() {
 
   return (
     <AnimatedPage>
-      <div className="p-4 w-full md:container md:mx-auto md:p-6 space-y-6">
+      <div className="p-4 h-full w-full md:container md:mx-auto md:p-6 space-y-6">
         <div className="w-full flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
           <h1 className="text-3xl font-bold">Weight History</h1>
-          <div className="w-full sm:w-auto flex gap-4 items-center">
-            <div className="inline-flex items-center rounded-lg border bg-card p-1 text-card-foreground">
-              <Button
-                variant="ghost"
-                size="sm"
-                className={cn(
-                  "relative h-8 rounded-md px-3",
-                  viewMode === "calendar" && "bg-muted"
-                )}
-                onClick={() => setViewMode("calendar")}
-              >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                Calendar
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className={cn(
-                  "relative h-8 rounded-md px-3",
-                  viewMode === "chart" && "bg-muted"
-                )}
-                onClick={() => setViewMode("chart")}
-              >
-                <LineChart className="mr-2 h-4 w-4" />
-                Chart
-              </Button>
-            </div>
-            <Button onClick={() => setShowWeightModal(true)}>
+          <div className="w-full">
+            <Button
+              onClick={() => setShowWeightModal(true)}
+              className="bg-primary hover:bg-primary/90 cursor-pointer"
+            >
               <Plus className="mr-2 h-4 w-4" />
               Record Weight
+            </Button>
+          </div>
+          <div className="w-full flex items-center rounded-lg border bg-card p-1 text-card-foreground">
+            <Button
+              variant="ghost"
+              size="sm"
+              className={cn(
+                "relative h-8 rounded-md px-3 w-[50%]",
+                viewMode === "calendar" && "bg-muted"
+              )}
+              onClick={() => setViewMode("calendar")}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              Calendar
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className={cn(
+                "relative h-8 rounded-md px-3 w-[50%]",
+                viewMode === "chart" && "bg-muted"
+              )}
+              onClick={() => setViewMode("chart")}
+            >
+              <LineChart className="mr-2 h-4 w-4" />
+              Chart
             </Button>
           </div>
         </div>
