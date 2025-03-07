@@ -5,20 +5,20 @@ import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 
 // Mock data - replace with real data from your backend
-const weightData = {
-  "2024-02-03": { weight: 74.8, bodyFat: 19.3 },
-  "2024-02-05": { weight: 74.6, bodyFat: 19.2 },
-  "2024-02-07": { weight: 74.5, bodyFat: 19.0 },
-  "2024-02-09": { weight: 74.3, bodyFat: 18.9 },
-  "2024-02-11": { weight: 74.2, bodyFat: 18.8 },
-  "2024-02-13": { weight: 74.0, bodyFat: 18.7 },
-  "2024-02-15": { weight: 73.9, bodyFat: 18.6 },
-  "2024-02-17": { weight: 73.8, bodyFat: 18.5 },
-  "2024-02-19": { weight: 73.7, bodyFat: 18.4 },
-  "2024-02-21": { weight: 73.6, bodyFat: 18.3 },
-  "2024-02-23": { weight: 73.5, bodyFat: 18.2 },
-  "2025-02-01": { weight: 75.0, bodyFat: 19.5 },
-};
+// const weightData = {
+//   "2024-02-03": { weight: 74.8, bodyFat: 19.3 },
+//   "2024-02-05": { weight: 74.6, bodyFat: 19.2 },
+//   "2024-02-07": { weight: 74.5, bodyFat: 19.0 },
+//   "2024-02-09": { weight: 74.3, bodyFat: 18.9 },
+//   "2024-02-11": { weight: 74.2, bodyFat: 18.8 },
+//   "2024-02-13": { weight: 74.0, bodyFat: 18.7 },
+//   "2024-02-15": { weight: 73.9, bodyFat: 18.6 },
+//   "2024-02-17": { weight: 73.8, bodyFat: 18.5 },
+//   "2024-02-19": { weight: 73.7, bodyFat: 18.4 },
+//   "2024-02-21": { weight: 73.6, bodyFat: 18.3 },
+//   "2024-02-23": { weight: 73.5, bodyFat: 18.2 },
+//   "2025-02-01": { weight: 75.0, bodyFat: 19.5 },
+// };
 
 interface WeightCalendarViewProps {
   selectedDate: Date;
@@ -28,6 +28,7 @@ interface WeightCalendarViewProps {
 export function WeightCalendarView({
   selectedDate,
   onSelectDate,
+  weightData,
 }: WeightCalendarViewProps) {
   return (
     <div className="space-y-6">
@@ -72,7 +73,9 @@ export function WeightCalendarView({
               day_hidden: "invisible",
             }}
             modifiers={{
-              hasWeight: Object.keys(weightData).map((date) => new Date(date)),
+              hasWeight:
+                weightData &&
+                Object.keys(weightData).map((date) => new Date(date)),
             }}
             modifiersStyles={{
               hasWeight: {

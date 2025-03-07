@@ -1,13 +1,14 @@
 import { NavLink } from "react-router";
 import { cn } from "@/lib/utils";
-import { Dumbbell, Home, Scale, CalendarRange } from "lucide-react";
+import {
+  Dumbbell,
+  Scale,
+  CalendarRange,
+  MessageSquareMore,
+  Utensils,
+} from "lucide-react";
 
 const routes = [
-  {
-    href: "/dashboard",
-    icon: Home,
-    label: "Home",
-  },
   {
     href: "/weight",
     icon: Scale,
@@ -18,10 +19,20 @@ const routes = [
     icon: Dumbbell,
     label: "Training",
   },
+  // {
+  //   href: "/training/plan",
+  //   icon: CalendarRange,
+  //   label: "Plan",
+  // },
   {
-    href: "/training/plan",
-    icon: CalendarRange,
-    label: "Plan",
+    href: "/chat",
+    icon: MessageSquareMore,
+    label: "Chat",
+  },
+  {
+    href: "/meals",
+    icon: Utensils,
+    label: "Meals",
   },
 ];
 

@@ -4,10 +4,11 @@ import { Card, CardContent } from "@/components/ui/card";
 
 interface WeightRecord {
   id: string;
-  date: string;
+  record_date: string;
   weight: number;
-  bodyFat?: number;
-  note?: string;
+  fat?: number;
+  created_at: string;
+  updated_at?: string;
 }
 
 interface WeightListItemProps {
@@ -24,19 +25,14 @@ export function WeightListItem({ record }: WeightListItemProps) {
           </div>
           <div className="flex-1 space-y-1">
             <p className="text-sm font-medium leading-none">
-              {format(new Date(record.date), "yyyy/MM/dd")}
+              {format(new Date(record.record_date), "yyyy/MM/dd")}
             </p>
             <div className="flex gap-4">
               <p className="text-2xl font-bold">{record.weight}kg</p>
-              {record.bodyFat && (
-                <p className="text-2xl text-muted-foreground">
-                  {record.bodyFat}%
-                </p>
+              {record.fat && (
+                <p className="text-2xl text-muted-foreground">{record.fat}%</p>
               )}
             </div>
-            {record.note && (
-              <p className="text-sm text-muted-foreground">{record.note}</p>
-            )}
           </div>
         </div>
       </CardContent>

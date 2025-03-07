@@ -33,20 +33,20 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { ja } from "date-fns/locale";
+import ApiClient from "@/lib/ApiClient";
 
 const formSchema = z.object({
-  date: z.date({
+  record_date: z.date({
     required_error: "日付を選択してください",
   }),
   weight: z
     .string()
     .min(1, "体重を入力してください")
     .regex(/^\d*\.?\d*$/, "数値を入力してください"),
-  bodyFat: z
+  fat: z
     .string()
     .regex(/^\d*\.?\d*$/, "数値を入力してください")
     .optional(),
-  note: z.string().optional(),
 });
 
 interface WeightFormModalProps {
@@ -63,21 +63,28 @@ export function WeightFormModal({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      date: defaultDate,
+      record_date: defaultDate,
       weight: "",
-      bodyFat: "",
-      note: "",
+      fat: "",
     },
   });
 
   // デフォルトの日付が変更されたときにフォームの値を更新
   useEffect(() => {
-    form.setValue("date", defaultDate);
+    form.setValue("record_date", defaultDate);
   }, [defaultDate, form]);
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // TODO: Save the data
     console.log(values);
+
+    const res = await ApiClient.post(
+      import.meta.env.VITE_API_ROOT + "/weight/",
+      values
+    );
+
+    console.log(res);
+
     onOpenChange(false);
     form.reset();
   }
@@ -88,14 +95,14 @@ export function WeightFormModal({
         <DialogHeader>
           <DialogTitle>体重を記録</DialogTitle>
           <DialogDescription>
-            今日の体重と体脂肪率を記録しましょう。
+            体重と体脂肪率を記録しましょう。
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name="date"
+              name="record_date"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>日付</FormLabel>
@@ -154,7 +161,7 @@ export function WeightFormModal({
             />
             <FormField
               control={form.control}
-              name="bodyFat"
+              name="fat"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>体脂肪率 (%)</FormLabel>
@@ -165,19 +172,6 @@ export function WeightFormModal({
                       placeholder="18.5"
                       {...field}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="note"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>メモ</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="今日の調子など..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

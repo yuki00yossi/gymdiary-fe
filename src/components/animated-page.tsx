@@ -14,8 +14,8 @@ export function AnimatedPage({ children }: AnimatedPageProps) {
       exit={{ x: "-100%" }}
       transition={{
         type: "spring",
-        stiffness: 260,
-        damping: 20,
+        stiffness: 1020,
+        damping: 40,
       }}
       className="h-full w-full"
     >
