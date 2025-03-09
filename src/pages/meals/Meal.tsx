@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight, Plus, PenLine } from "lucide-react";
 import { AnimatedPage } from "@/components/animated-page";
 import ApiClient from "@/lib/ApiClient";
 import { NavLink } from "react-router";
-import { AddFoodModal } from "@/components/AddMealItem";
+import { MealData } from "@/types/meal";
 
 // モックデータ
 const mockData = {
@@ -90,11 +90,9 @@ function CircularProgress({
 
 function CaloriesSummary({
   consumed,
-  remaining,
   target,
 }: {
   consumed: number;
-  remaining: number;
   target: number;
 }) {
   return (
@@ -125,7 +123,7 @@ function CaloriesSummary({
 
 export default function MealsPage() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [mealData, setMealData] = useState(mockData);
+  const [mealData, setMealData] = useState<MealData>(mockData);
 
   const handlePrevDay = () => setSelectedDate((prev) => subDays(prev, 1));
   const handleNextDay = () => setSelectedDate((prev) => addDays(prev, 1));
@@ -145,7 +143,7 @@ export default function MealsPage() {
         "yyyy-MM-dd"
       )}`
     );
-    const data = {
+    const data: MealData = {
       calories: {
         consumed: 0,
         remaining: 0,
@@ -213,7 +211,6 @@ export default function MealsPage() {
           <h2 className="font-medium mb-4">サマリー</h2>
           <CaloriesSummary
             consumed={mealData.calories.consumed}
-            remaining={mealData.calories.remaining}
             target={mealData.calories.target}
           />
           <div className="flex justify-between">

@@ -26,6 +26,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { FoodItemPost } from "@/types/food";
 
 // 単位オプション
 const unitOptions = [
@@ -55,7 +56,7 @@ export type FoodItem = z.infer<typeof formSchema>;
 interface AddFoodModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onMealAdd: (data) => void;
+  onMealAdd: (data: FoodItemPost) => void;
 }
 
 export function AddFoodModal({

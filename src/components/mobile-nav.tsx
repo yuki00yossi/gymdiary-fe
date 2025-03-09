@@ -1,12 +1,6 @@
 import { NavLink } from "react-router";
 import { cn } from "@/lib/utils";
-import {
-  Dumbbell,
-  Scale,
-  CalendarRange,
-  MessageSquareMore,
-  Utensils,
-} from "lucide-react";
+import { Dumbbell, Scale, MessageSquareMore, Utensils } from "lucide-react";
 
 const routes = [
   {

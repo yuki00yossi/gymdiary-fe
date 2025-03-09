@@ -1,5 +1,3 @@
-import type React from "react";
-
 import { useState } from "react";
 import { NavLink } from "react-router";
 import { Button } from "@/components/ui/button";
@@ -36,7 +34,7 @@ const chatRooms = [
 ];
 
 export default function Chat() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed] = useState(false);
 
   return (
     <AnimatedPage>

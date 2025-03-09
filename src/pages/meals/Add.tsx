@@ -1,7 +1,7 @@
 import type React from "react";
 
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
@@ -46,7 +46,6 @@ import { AnimatedPage } from "@/components/animated-page";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { toast } from "sonner";
 import {
   Command,
   CommandEmpty,
@@ -56,111 +55,8 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import ApiClient from "@/lib/ApiClient";
-import { AddFoodModal, type FoodItem } from "@/components/AddMealItem";
-
-// モック食品データ
-const foodItems = [
-  {
-    id: 1,
-    name: "ご飯",
-    calories: 168,
-    protein: 2.5,
-    carbs: 37,
-    fat: 0.3,
-    unit: "g",
-    base_quantity: 100,
-  },
-  {
-    id: 2,
-    name: "食パン",
-    calories: 264,
-    protein: 9.3,
-    carbs: 48.5,
-    fat: 4.1,
-    unit: "枚",
-    base_quantity: 1,
-  },
-  {
-    id: 3,
-    name: "鶏むね肉",
-    calories: 116,
-    protein: 22,
-    carbs: 0,
-    fat: 2.1,
-    unit: "g",
-    base_quantity: 100,
-  },
-  {
-    id: 4,
-    name: "サーモン",
-    calories: 142,
-    protein: 20.5,
-    carbs: 0,
-    fat: 6.3,
-    unit: "g",
-    base_quantity: 100,
-  },
-  {
-    id: 5,
-    name: "ブロッコリー",
-    calories: 33,
-    protein: 3.3,
-    carbs: 4.5,
-    fat: 0.4,
-    unit: "g",
-    base_quantity: 100,
-  },
-  {
-    id: 6,
-    name: "卵",
-    calories: 91,
-    protein: 7.4,
-    carbs: 0.4,
-    fat: 6.5,
-    unit: "個",
-    base_quantity: 1,
-  },
-  {
-    id: 7,
-    name: "牛乳",
-    calories: 61,
-    protein: 3.3,
-    carbs: 4.8,
-    fat: 3.8,
-    unit: "ml",
-    base_quantity: 100,
-  },
-  {
-    id: 8,
-    name: "バナナ",
-    calories: 86,
-    protein: 1.1,
-    carbs: 22.5,
-    fat: 0.2,
-    unit: "本",
-    base_quantity: 1,
-  },
-  {
-    id: 9,
-    name: "プロテイン",
-    calories: 120,
-    protein: 24,
-    carbs: 3,
-    fat: 1.5,
-    unit: "杯",
-    base_quantity: 1,
-  },
-  {
-    id: 10,
-    name: "オートミール",
-    calories: 68,
-    protein: 2.4,
-    carbs: 12,
-    fat: 1.4,
-    unit: "g",
-    base_quantity: 30,
-  },
-];
+import { AddFoodModal } from "@/components/AddMealItem";
+import { FoodItem, FoodItemPost } from "@/types/food";
 
 const timeOfDayOptions = [
   { value: "朝食", label: "朝食" },
@@ -213,13 +109,12 @@ export default function MealAddPage() {
   const [selectedFood, setSelectedFood] = useState<
     (typeof foodItems)[0] | null
   >(null);
-  const [defaultData, setDefaultData] = useState(null);
   const [quantity, setQuantity] = useState("100");
   const [unit, setUnit] = useState("g");
   const [searchOpen, setSearchOpen] = useState(false);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
-  const [foodItems, setFoodItems] = useState([]);
+  const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
   const { mealId } = useParams();
 
   const form = useForm<FormValues>({
@@ -249,7 +144,7 @@ export default function MealAddPage() {
 
     form.setValue("mealItems", [...mealItems, newMealItem]);
     setSelectedFood(null);
-    setQuantity(selectedFood.base_quantity);
+    setQuantity(selectedFood.base_quantity.toString());
     setUnit(selectedFood.unit);
     setSearchTerm("");
   };
@@ -285,13 +180,6 @@ export default function MealAddPage() {
   };
 
   const onSubmit = async (data: FormValues) => {
-    // ファイル入力から直接ファイルを取得
-    // const fileInput = document.getElementById(
-    //   "photo-upload"
-    // ) as HTMLInputElement;
-    // const photoFile = fileInput?.files?.[0];
-
-    console.log(photoFile);
     let photoUrl = null;
     if (photoFile) {
       const formData = new FormData();
@@ -302,15 +190,6 @@ export default function MealAddPage() {
         { headers: { "Content-Type": "multipart/form-data" } }
       );
       photoUrl = photoResponse.data.photo_url;
-    }
-
-    // formDataを作成
-    const formData = new FormData();
-    formData.append("date", format(data.date, "yyyy-MM-dd"));
-    formData.append("time_of_day", data.timeOfDay);
-    formData.append("meal_items", data.mealItems);
-    if (photoUrl) {
-      formData.append;
     }
 
     const reqData = {
@@ -354,7 +233,7 @@ export default function MealAddPage() {
     console.log(res.data);
   };
 
-  const submitMealItem = async (data) => {
+  const submitMealItem = async (data: FoodItemPost) => {
     console.log(data);
     const res = await ApiClient.post(
       import.meta.env.VITE_API_ROOT + "/meal/items/",
@@ -362,7 +241,6 @@ export default function MealAddPage() {
     );
 
     const newItems = foodItems.push(res.data);
-    // setFoodItems(newItems);
     setSelectedFood(res.data);
 
     console.log(newItems);
@@ -467,7 +345,7 @@ export default function MealAddPage() {
                 <FormField
                   control={form.control}
                   name="photo"
-                  render={({ field }) => (
+                  render={() => (
                     <FormItem>
                       <FormLabel>写真</FormLabel>
                       <FormControl>
@@ -490,8 +368,6 @@ export default function MealAddPage() {
                                   accept="image/*"
                                   className="hidden"
                                   onChange={handlePhotoChange}
-                                  // ファイル入力の値は直接操作しない
-                                  // {...field} を削除
                                 />
                               </label>
                             </div>

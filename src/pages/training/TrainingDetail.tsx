@@ -13,65 +13,16 @@ import {
   Timer,
   Trash2,
 } from "lucide-react";
-import type { TrainingRecord } from "@/types/training";
 import { AnimatedPage } from "@/components/animated-page";
 import { useEffect, useState } from "react";
 import ApiClient from "@/lib/ApiClient";
-
-// Mock data - replace with real data fetching
-const trainingData: Record<string, TrainingRecord> = {
-  "1": {
-    id: "1",
-    date: "2024-02-23",
-    workouts: [
-      {
-        menu: "ベンチプレス",
-        type: "weight",
-        unit: "kg",
-        memo: "今日は高重量を意識してトレーニング",
-        sets: [
-          { weight: 80, reps: 10, memo: "フォームを意識" },
-          { weight: 75, reps: 12, memo: "最後の2回がきつかった" },
-        ],
-      },
-      {
-        menu: "ダンベルフライ",
-        type: "weight",
-        unit: "kg",
-        memo: "今日は高重量を意識してトレーニング",
-        sets: [
-          { weight: 80, reps: 10, memo: "フォームを意識" },
-          { weight: 75, reps: 12, memo: "最後の2回がきつかった" },
-        ],
-      },
-    ],
-  },
-  "2": {
-    id: "2",
-    date: "2024-02-22",
-    workouts: [
-      {
-        menu: "ランニング",
-        type: "distance",
-        unit: "km",
-        memo: "ペース走を意識して一定のリズムで",
-        sets: [
-          {
-            distance: 5,
-            time: "00:30:00",
-            memo: "途中でペースアップした",
-          },
-        ],
-      },
-    ],
-  },
-};
+import { TrainingRecord } from "@/types/training";
 
 export default function TrainingDetailPage() {
   const navigate = useNavigate();
   const params = useParams();
 
-  const [record, setRecord] = useState([]);
+  const [record, setRecord] = useState<TrainingRecord | null>(null);
 
   //   if (!record.length) {
   //     return <div>Training not found</div>;
@@ -93,8 +44,10 @@ export default function TrainingDetailPage() {
   const handleDelete = async () => {
     console.log("Delete training:", record);
     // navigate("/training");
-    const deleteUrl = `${import.meta.env.VITE_API_ROOT}/training/${record.id}/`;
-    const res = await ApiClient.delete(deleteUrl);
+    const deleteUrl = `${import.meta.env.VITE_API_ROOT}/training/${
+      record?.id
+    }/`;
+    await ApiClient.delete(deleteUrl);
     navigate("/training");
   };
 
@@ -113,7 +66,7 @@ export default function TrainingDetailPage() {
         </div>
 
         <div className="space-y-6">
-          {!record.workouts ? (
+          {!record?.workouts ? (
             <p>トレーニングデータが見つかりませんでした。</p>
           ) : (
             record.workouts.map((workout, workoutIndex) => (

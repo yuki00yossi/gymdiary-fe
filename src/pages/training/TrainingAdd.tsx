@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { format } from "date-fns";
-import { ja } from "date-fns/locale";
 import ApiClient from "@/lib/ApiClient";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,18 +20,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon, ChevronLeft, Minus, Plus } from "lucide-react";
+import { ChevronLeft, Minus, Plus } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { cn } from "@/lib/utils";
-import type { TrainingRecord } from "@/types/training";
 import { AnimatedPage } from "@/components/animated-page";
 import { useParams } from "react-router";
 
@@ -75,8 +65,6 @@ type FormValues = z.infer<typeof weightFormSchema>;
 export default function TrainingAddPage() {
   const navigate = useNavigate();
   const params = useParams();
-  const [record, setRecord] = useState<TrainingRecord | null>(null);
-  const [loading, setLoading] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(weightFormSchema),
@@ -101,16 +89,6 @@ export default function TrainingAddPage() {
     );
     console.log(res.data);
     // navigate(`/training/${params.id}`);
-  }
-
-  if (loading) {
-    return (
-      <AnimatedPage>
-        <div className="p-4 w-full md:container md:mx-auto md:p-6">
-          <p>ロード中...</p>
-        </div>
-      </AnimatedPage>
-    );
   }
 
   return (

@@ -1,18 +1,10 @@
 import { format } from "date-fns";
 import { Scale } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-
-interface WeightRecord {
-  id: string;
-  record_date: string;
-  weight: number;
-  fat?: number;
-  created_at: string;
-  updated_at?: string;
-}
+import { weightData } from "@/types/weight";
 
 interface WeightListItemProps {
-  record: WeightRecord;
+  record: weightData;
 }
 
 export function WeightListItem({ record }: WeightListItemProps) {

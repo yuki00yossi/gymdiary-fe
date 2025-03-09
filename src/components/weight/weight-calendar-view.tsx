@@ -1,28 +1,14 @@
 "use client";
 import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent } from "@/components/ui/card";
+import { weightCalendarDataList } from "@/types/weight";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-
-// Mock data - replace with real data from your backend
-// const weightData = {
-//   "2024-02-03": { weight: 74.8, bodyFat: 19.3 },
-//   "2024-02-05": { weight: 74.6, bodyFat: 19.2 },
-//   "2024-02-07": { weight: 74.5, bodyFat: 19.0 },
-//   "2024-02-09": { weight: 74.3, bodyFat: 18.9 },
-//   "2024-02-11": { weight: 74.2, bodyFat: 18.8 },
-//   "2024-02-13": { weight: 74.0, bodyFat: 18.7 },
-//   "2024-02-15": { weight: 73.9, bodyFat: 18.6 },
-//   "2024-02-17": { weight: 73.8, bodyFat: 18.5 },
-//   "2024-02-19": { weight: 73.7, bodyFat: 18.4 },
-//   "2024-02-21": { weight: 73.6, bodyFat: 18.3 },
-//   "2024-02-23": { weight: 73.5, bodyFat: 18.2 },
-//   "2025-02-01": { weight: 75.0, bodyFat: 19.5 },
-// };
 
 interface WeightCalendarViewProps {
   selectedDate: Date;
   onSelectDate: (date: Date) => void;
+  weightData: weightCalendarDataList;
 }
 
 export function WeightCalendarView({
@@ -41,7 +27,7 @@ export function WeightCalendarView({
             className="w-full"
             locale={ja}
             formatters={{
-              formatCaption: (date, options) => {
+              formatCaption: (date) => {
                 return format(date, "yyyy年 M月", { locale: ja });
               },
             }}
@@ -105,7 +91,7 @@ export function WeightCalendarView({
                             isSelected && "text-white/80"
                           }`}
                         >
-                          {data.bodyFat}%
+                          {data.fat}%
                         </div>
                       </div>
                     )}
@@ -140,7 +126,7 @@ export function WeightCalendarView({
                   <div className="space-y-1">
                     <p className="text-sm text-muted-foreground">Body Fat</p>
                     <p className="text-2xl font-bold">
-                      {weightData[format(selectedDate, "yyyy-MM-dd")].bodyFat}%
+                      {weightData[format(selectedDate, "yyyy-MM-dd")].fat}%
                     </p>
                   </div>
                 </div>

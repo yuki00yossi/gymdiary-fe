@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { format } from "date-fns";
-import { ja } from "date-fns/locale";
 import ApiClient from "@/lib/ApiClient";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,59 +21,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { CalendarIcon, ChevronLeft, Minus, Plus } from "lucide-react";
+
+import { ChevronLeft, Minus, Plus } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { cn } from "@/lib/utils";
-import type { TrainingRecord } from "@/types/training";
 import { AnimatedPage } from "@/components/animated-page";
 import { useParams } from "react-router";
-
-// Mock data - replace with real data fetching
-const trainingData: Record<string, TrainingRecord> = {
-  "1": {
-    id: "1",
-    date: "2024-02-23",
-    workouts: [
-      {
-        menu: "ベンチプレス",
-        type: "weight",
-        unit: "kg",
-        memo: "今日は高重量を意識してトレーニング",
-        sets: [
-          { weight: 80, reps: 10, memo: "フォームを意識" },
-          { weight: 75, reps: 12, memo: "最後の2回がきつかった" },
-        ],
-      },
-    ],
-  },
-  "2": {
-    id: "2",
-    date: "2024-02-22",
-    workouts: [
-      {
-        menu: "ランニング",
-        type: "distance",
-        unit: "km",
-        memo: "ペース走を意識して一定のリズムで",
-        sets: [
-          {
-            distance: 5,
-            time: "00:30:00",
-            memo: "途中でペースアップした",
-          },
-        ],
-      },
-    ],
-  },
-};
 
 const weightFormSchema = z.object({
   date: z.string().refine((val) => /^\d{4}-\d{2}-\d{2}$/.test(val), {
@@ -114,14 +67,14 @@ type FormValues = z.infer<typeof weightFormSchema>;
 export default function TrainingEditPage() {
   const navigate = useNavigate();
   const params = useParams();
-  const [record, setRecord] = useState<TrainingRecord | null>(null);
+  // const [record, setRecord] = useState<TrainingRecord | null>(null);
   const [loading, setLoading] = useState(true);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(weightFormSchema),
     mode: "onBlur",
     defaultValues: {
-      date: new Date(),
+      date: format(new Date(), "yyyy-MM-dd"),
       memo: "",
       workouts: [],
     },
@@ -140,7 +93,7 @@ export default function TrainingEditPage() {
         );
 
         console.log("API response:", res.data);
-        setRecord(res.data);
+        // setRecord(res.data);
 
         form.reset({
           date: format(new Date(res.data.date), "yyyy-MM-dd"),

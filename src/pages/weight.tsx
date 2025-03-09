@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CalendarIcon, Plus, LineChart } from "lucide-react";
+import { CalendarIcon, Plus } from "lucide-react";
 import { WeightList } from "@/components/weight/weight-list";
 import { WeightCalendarView } from "@/components/weight/weight-calendar-view";
 import { WeightChartView } from "@/components/weight/weight-chart-view";
@@ -11,6 +11,8 @@ import { AnimatedPage } from "@/components/animated-page";
 import { useAuth } from "@/lib/AuthContext";
 import { ja } from "date-fns/locale";
 
+import { weightCalendarDataList, weightDataList } from "@/types/weight";
+
 type ViewMode = "calendar" | "chart";
 
 export default function WeightPage() {
@@ -18,21 +20,21 @@ export default function WeightPage() {
   const [showWeightModal, setShowWeightModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const { apiFetch } = useAuth();
-  const [weightData, setWeightData] = useState([]);
-  const [calendarData, setCalendarData] = useState([]);
+  const [weightData, setWeightData] = useState<weightDataList>([]);
+  const [calendarData, setCalendarData] = useState<weightCalendarDataList>({});
 
   useEffect(() => {
     fetchWeights();
   }, []);
 
-  const _setCalendarData = (data) => {
-    const formatedData = {};
+  const _setCalendarData = (data: weightDataList) => {
+    const formatedData: weightCalendarDataList = {};
 
     for (let i = 0; i < data.length; i++) {
       const date = format(data[i].record_date, "yyyy-MM-dd", { locale: ja });
       formatedData[date] = {
         weight: data[i].weight,
-        bodyFat: data[i].fat,
+        fat: data[i].fat,
       };
     }
 
@@ -42,7 +44,7 @@ export default function WeightPage() {
   const fetchWeights = async () => {
     const weightURL = import.meta.env.VITE_API_ROOT + "/weight/";
     const res = await apiFetch(weightURL);
-    const data = await res.json();
+    const data: weightDataList = await res.json();
     setWeightData(data);
     console.log(data);
 

@@ -32,6 +32,7 @@ function App() {
               <AuthProvider>
                 <Routes>
                   {/**  */}
+                  <Route path="/" element={<SignupPage />}></Route>
                   <Route path="/signup" element={<SignupPage />}></Route>
                   {/** 体重管理 */}
                   <Route

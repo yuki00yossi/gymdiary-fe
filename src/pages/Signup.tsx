@@ -28,6 +28,8 @@ import { Loader2 } from "lucide-react";
 import { AnimatedPage } from "@/components/animated-page";
 import ApiClient from "@/lib/ApiClient";
 
+import { AxiosError } from "axios";
+
 const formSchema = z
   .object({
     name: z.string().min(1, "名前を入力してください"),
@@ -43,10 +45,8 @@ const formSchema = z
       .min(1, "パスワードを入力してください")
       .min(8, "パスワードは8文字以上で入力してください"),
     confirmPassword: z.string().min(1, "パスワードを再入力してください"),
-    terms: z.literal(true, {
-      errorMap: () => ({
-        message: "利用規約とプライバシーポリシーに同意する必要があります",
-      }),
+    terms: z.boolean().refine((val) => val === true, {
+      message: "利用規約とプライバシーポリシーに同意する必要があります",
     }),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -73,10 +73,8 @@ export default function SignupPage() {
     setIsLoading(true);
 
     try {
-      // TODO: 実際のサインアップ処理の実装
-      console.log(values);
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      const res = await ApiClient.post(
+      await ApiClient.post(
         import.meta.env.VITE_API_ROOT + "/account/register/",
         {
           username: values.username,
@@ -96,11 +94,12 @@ export default function SignupPage() {
 
       //   navigate("/login");
     } catch (error) {
-      if (error.status == 400) {
-        Object.entries(error.response.data).forEach(([key, messages]) => {
-          form.setError(key, {
+      const axiosError = error as AxiosError<{ [key: string]: string[] }>;
+      if (axiosError.status == 400 && axiosError.response?.data) {
+        Object.entries(axiosError.response.data).forEach(([key, messages]) => {
+          form.setError(key as keyof z.infer<typeof formSchema>, {
             type: "server",
-            message: messages[0],
+            message: (messages as string[])[0],
           });
         });
       }
