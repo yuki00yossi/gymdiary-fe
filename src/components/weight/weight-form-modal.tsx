@@ -53,12 +53,14 @@ interface WeightFormModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   defaultDate: Date;
+  fetchWeights: () => Promise<void>;
 }
 
 export function WeightFormModal({
   open,
   onOpenChange,
   defaultDate,
+  fetchWeights,
 }: WeightFormModalProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -75,9 +77,6 @@ export function WeightFormModal({
   }, [defaultDate, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // TODO: Save the data
-    console.log(values);
-
     const res = await ApiClient.post(
       import.meta.env.VITE_API_ROOT + "/weight/",
       values
@@ -86,6 +85,7 @@ export function WeightFormModal({
     console.log(res);
 
     onOpenChange(false);
+    await fetchWeights();
     form.reset();
   }
 

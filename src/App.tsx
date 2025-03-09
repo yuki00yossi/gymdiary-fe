@@ -15,6 +15,8 @@ import TrainingAddPage from "./pages/training/TrainingAdd";
 import Chat from "./pages/chat/Chat";
 import MealsPage from "./pages/meals/Meal";
 import MealAddPage from "./pages/meals/Add";
+import SignupPage from "./pages/Signup";
+import { Toaster } from "./components/ui/sonner";
 
 function App() {
   return (
@@ -29,6 +31,9 @@ function App() {
             <main className="flex-1 overflow-auto pt-16 pb-16 md:pb-0">
               <AuthProvider>
                 <Routes>
+                  {/**  */}
+                  <Route path="/signup" element={<SignupPage />}></Route>
+                  {/** 体重管理 */}
                   <Route
                     path="/weight"
                     element={
@@ -37,6 +42,7 @@ function App() {
                       </ProtectedRoute>
                     }
                   ></Route>
+                  {/** トレーニング管理 */}
                   <Route
                     path="/training"
                     element={
@@ -80,6 +86,14 @@ function App() {
                     }
                   ></Route>
                   <Route
+                    path="/meals/:mealId"
+                    element={
+                      <ProtectedRoute>
+                        <MealAddPage />
+                      </ProtectedRoute>
+                    }
+                  ></Route>
+                  <Route
                     path="/meals/add"
                     element={
                       <ProtectedRoute>
@@ -105,6 +119,7 @@ function App() {
           </BrowserRouter>
         </div>
       </SidebarProvider>
+      <Toaster />
     </>
   );
 }

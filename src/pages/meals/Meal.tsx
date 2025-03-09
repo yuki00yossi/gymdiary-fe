@@ -63,7 +63,7 @@ function CircularProgress({
           className="stroke-primary transition-all duration-300 ease-in-out"
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
-          strokeDashoffset={offset}
+          strokeDashoffset={offset.toString()}
           strokeLinecap="round"
           fill="transparent"
           r={radius}

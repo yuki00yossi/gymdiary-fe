@@ -1,7 +1,7 @@
 import type React from "react";
 
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useNavigate, useParams } from "react-router";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
@@ -194,7 +194,7 @@ const formSchema = z.object({
   mealItems: z
     .array(
       z.object({
-        mealItemId: z.number(),
+        meal_item_id: z.number(),
         name: z.string(),
         quantity: z.number().min(0, "0以上の値を入力してください"),
         unit: z.string(),
@@ -209,15 +209,18 @@ type FormValues = z.infer<typeof formSchema>;
 export default function MealAddPage() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [addFoodModalOpen, setAddFoodModalOpen] = useState(true);
+  const [addFoodModalOpen, setAddFoodModalOpen] = useState(false);
   const [selectedFood, setSelectedFood] = useState<
     (typeof foodItems)[0] | null
   >(null);
+  const [defaultData, setDefaultData] = useState(null);
   const [quantity, setQuantity] = useState("100");
   const [unit, setUnit] = useState("g");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [foodItems, setFoodItems] = useState([]);
+  const { mealId } = useParams();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -234,7 +237,7 @@ export default function MealAddPage() {
     if (!selectedFood) return;
 
     const newMealItem = {
-      mealItemId: selectedFood.id,
+      meal_item_id: selectedFood.id,
       name: selectedFood.name,
       quantity: Number.parseFloat(quantity),
       unit: unit,
@@ -260,7 +263,7 @@ export default function MealAddPage() {
   const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // FileList を直接設定するのではなく、内部状態として保持
+      setPhotoFile(file);
       const reader = new FileReader();
       reader.onload = () => {
         setPhotoPreview(reader.result as string);
@@ -283,33 +286,41 @@ export default function MealAddPage() {
 
   const onSubmit = async (data: FormValues) => {
     // ファイル入力から直接ファイルを取得
-    const fileInput = document.getElementById(
-      "photo-upload"
-    ) as HTMLInputElement;
-    const photoFile = fileInput?.files?.[0];
+    // const fileInput = document.getElementById(
+    //   "photo-upload"
+    // ) as HTMLInputElement;
+    // const photoFile = fileInput?.files?.[0];
 
-    const formatData = {
+    console.log(photoFile);
+    let photoUrl = null;
+    if (photoFile) {
+      const formData = new FormData();
+      formData.append("photo", photoFile);
+      const photoResponse = await ApiClient.post(
+        import.meta.env.VITE_API_ROOT + "/meal/photo/",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      photoUrl = photoResponse.data.photo_url;
+    }
+
+    // formDataを作成
+    const formData = new FormData();
+    formData.append("date", format(data.date, "yyyy-MM-dd"));
+    formData.append("time_of_day", data.timeOfDay);
+    formData.append("meal_items", data.mealItems);
+    if (photoUrl) {
+      formData.append;
+    }
+
+    const reqData = {
       date: format(data.date, "yyyy-MM-dd"),
       time_of_day: data.timeOfDay,
-      photo: photoFile,
-      meal_items: data.mealItems.map((item) => ({
-        meal_item_id: item.mealItemId,
-        quantity: item.quantity,
-        unit: item.unit,
-      })),
+      meal_items: data.mealItems,
+      photo_key: photoUrl,
     };
-
-    // TODO: 実際のAPIリクエスト
-    console.log("送信データ:", formatData);
-
-    const res = await ApiClient.post(
-      import.meta.env.VITE_API_ROOT + "/meal/",
-      formatData
-    );
-
-    console.log(res.data);
-
-    // navigate("/meals");
+    await ApiClient.post(import.meta.env.VITE_API_ROOT + "/meal/", reqData);
+    navigate("/meals");
   };
 
   // 合計カロリー計算
@@ -321,7 +332,18 @@ export default function MealAddPage() {
 
   useEffect(() => {
     fetchMealItems();
+    if (mealId) {
+      fetchMealDetail();
+    }
   }, []);
+
+  const fetchMealDetail = async () => {
+    const res = await ApiClient.get(
+      import.meta.env.VITE_API_ROOT + `/meal/${mealId}/`
+    );
+
+    console.log(res.data);
+  };
 
   const fetchMealItems = async () => {
     const res = await ApiClient.get(

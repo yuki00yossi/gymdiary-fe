@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, Plus, LineChart } from "lucide-react";
 import { WeightList } from "@/components/weight/weight-list";
@@ -39,7 +37,6 @@ export default function WeightPage() {
     }
 
     setCalendarData(formatedData);
-    // console.log(formatedData);
   };
 
   const fetchWeights = async () => {
@@ -114,6 +111,7 @@ export default function WeightPage() {
           open={showWeightModal}
           onOpenChange={setShowWeightModal}
           defaultDate={selectedDate}
+          fetchWeights={fetchWeights}
         />
       </div>
     </AnimatedPage>
