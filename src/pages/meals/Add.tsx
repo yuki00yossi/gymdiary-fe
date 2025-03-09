@@ -33,6 +33,7 @@ import {
   CalendarIcon,
   ChevronLeft,
   ImagePlus,
+  Loader2,
   Plus,
   Search,
   Trash2,
@@ -57,6 +58,7 @@ import {
 import ApiClient from "@/lib/ApiClient";
 import { AddFoodModal } from "@/components/AddMealItem";
 import { FoodItem, FoodItemPost } from "@/types/food";
+import { toast } from "sonner";
 
 const timeOfDayOptions = [
   { value: "朝食", label: "朝食" },
@@ -104,6 +106,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function MealAddPage() {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [addFoodModalOpen, setAddFoodModalOpen] = useState(false);
   const [selectedFood, setSelectedFood] = useState<
@@ -180,6 +183,8 @@ export default function MealAddPage() {
   };
 
   const onSubmit = async (data: FormValues) => {
+    setIsSubmitting(true);
+
     let photoUrl = null;
     if (photoFile) {
       const formData = new FormData();
@@ -200,6 +205,12 @@ export default function MealAddPage() {
     };
     await ApiClient.post(import.meta.env.VITE_API_ROOT + "/meal/", reqData);
     navigate("/meals");
+
+    toast(`食事記録が完了しました`, {
+      description: `${data.timeOfDay}の記録が完了しました。`,
+    });
+
+    setIsSubmitting(false);
   };
 
   // 合計カロリー計算
@@ -609,10 +620,10 @@ export default function MealAddPage() {
                       </p>
                       <p className="text-2xl font-bold">{totalCalories}kcal</p>
                     </div>
-                    <Button
-                      type="submit"
-                      className="bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300 text-white"
-                    >
+                    <Button type="submit" disabled={isSubmitting}>
+                      {isSubmitting && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
                       保存する
                     </Button>
                   </div>

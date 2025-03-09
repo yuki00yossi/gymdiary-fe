@@ -20,12 +20,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ChevronLeft, Minus, Plus } from "lucide-react";
+import { ChevronLeft, Loader2, Minus, Plus } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { AnimatedPage } from "@/components/animated-page";
 import { useParams } from "react-router";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const weightFormSchema = z.object({
   date: z.string().refine((val) => /^\d{4}-\d{2}-\d{2}$/.test(val), {
@@ -65,6 +67,7 @@ type FormValues = z.infer<typeof weightFormSchema>;
 export default function TrainingAddPage() {
   const navigate = useNavigate();
   const params = useParams();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(weightFormSchema),
@@ -82,12 +85,17 @@ export default function TrainingAddPage() {
   });
 
   async function onSubmit(data: FormValues) {
-    console.log("送信データ:", data);
+    setIsSubmitting(true);
+
     const res = await ApiClient.post(
       import.meta.env.VITE_API_ROOT + "/training/",
       data
     );
     console.log(res.data);
+    setIsSubmitting(false);
+    toast("トレーニングを保存しました", {
+      description: "トレーニングの保存が完了しました。",
+    });
     // navigate(`/training/${params.id}`);
   }
 
@@ -146,7 +154,7 @@ export default function TrainingAddPage() {
               トレーニングを追加
             </Button>
 
-            <Card>
+            {/* <Card>
               <CardHeader>
                 <CardTitle>メモ</CardTitle>
               </CardHeader>
@@ -164,7 +172,7 @@ export default function TrainingAddPage() {
                   )}
                 />
               </CardContent>
-            </Card>
+            </Card> */}
 
             <div className="flex justify-end gap-4">
               <Button
@@ -174,7 +182,12 @@ export default function TrainingAddPage() {
               >
                 キャンセル
               </Button>
-              <Button type="submit">保存</Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                保存
+              </Button>
             </div>
           </form>
         </Form>

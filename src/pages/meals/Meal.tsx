@@ -299,10 +299,7 @@ export default function MealsPage() {
                 </div>
               </NavLink>
             ))}
-            <Button
-              asChild
-              className="w-full mt-5 bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300 text-white"
-            >
+            <Button asChild className="w-full mt-5 text-white">
               <NavLink to="/meals/add">食事を記録</NavLink>
             </Button>
           </div>
