@@ -25,6 +25,7 @@ import {
 import { Loader2 } from "lucide-react";
 import { AnimatedPage } from "@/components/animated-page";
 import { useAuth } from "@/lib/AuthContext";
+import ApiClient from "@/lib/ApiClient";
 
 const formSchema = z.object({
   username: z.string().min(1, "ユーザー名を入力してください"),
@@ -37,7 +38,7 @@ const formSchema = z.object({
 export default function LoginPage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const { setIsLoggedIn, apiFetch } = useAuth();
+  const { setIsLoggedIn } = useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -53,20 +54,11 @@ export default function LoginPage() {
     try {
       const loginURL = import.meta.env.VITE_API_ROOT + "/account/login/";
 
-      const res = await apiFetch(loginURL, {
-        method: "POST",
-        body: JSON.stringify(values),
-      });
-
-      console.log(res.ok);
-      if (res.ok) {
-        setIsLoggedIn(true);
-        navigate("/weight");
-      } else {
-        setIsLoggedIn(false);
-        throw new Error("ログインに失敗しました。");
-      }
+      await ApiClient.post(loginURL, values);
+      setIsLoggedIn(true);
+      navigate("/weight");
     } catch (error) {
+      setIsLoggedIn(false);
       console.error(error);
       form.setError("root", {
         type: "manual",

@@ -19,3 +19,26 @@ export interface MealData {
     };
     meals: Meal[];
   }
+
+export interface MealItem {
+  id: number;
+  name: string;
+  quantity: number;
+  unit: string;
+  calories: number;
+  protein: number;
+  fat: number;
+  carbs: number;
+}
+
+export interface MealDetail {
+  id: string;
+  date: string;
+  timeOfDay: string;
+  photo: string;
+  totalCalories: number;
+  totalProtein: number;
+  totalCarbs: number;
+  totalFat: number;
+  items: MealItem[];
+}
