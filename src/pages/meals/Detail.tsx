@@ -149,7 +149,6 @@ export default function MealDetailPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 実際のアプリケーションではAPIから取得
     const fetchMeal = async () => {
       setLoading(true);
       try {
@@ -157,9 +156,6 @@ export default function MealDetailPage() {
           import.meta.env.VITE_API_ROOT + `/meal/${mealId}/`
         );
         console.log(res.data);
-        // APIリクエストをシミュレート
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
         const mealData: MealDetail = {
           id: res.data.id,
           date: res.data.date,
@@ -228,9 +224,12 @@ export default function MealDetailPage() {
   const handleDelete = async () => {
     // 実際のアプリケーションではAPIリクエスト
     try {
-      // 削除APIリクエストをシミュレート
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
+      if (!meal) {
+        throw new Error("食事データが見つかりませんでした。");
+      }
+      const url = `${import.meta.env.VITE_API_ROOT}/meal/${meal.id}/`;
+      console.log(url);
+      await ApiClient.delete(url);
       toast("食事記録を削除しました。", {
         description: "食事記録が正常に削除されました",
       });

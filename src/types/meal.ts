@@ -42,3 +42,18 @@ export interface MealDetail {
   totalFat: number;
   items: MealItem[];
 }
+
+export interface AddMealItem {
+  meal_item_id: number;
+  name: string;
+  quantity: number;
+  unit: string;
+  calories: number;
+}
+
+export interface AddMealData {
+  date: string;
+  time_of_day: string;
+  meal_items: AddMealItem[];
+  photo_key?: string|null;
+}

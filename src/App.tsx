@@ -18,6 +18,7 @@ import MealAddPage from "./pages/meals/Add";
 import SignupPage from "./pages/Signup";
 import { Toaster } from "./components/ui/sonner";
 import MealDetailPage from "./pages/meals/Detail";
+import MealEditPage from "./pages/meals/Edit";
 
 function App() {
   return (
@@ -100,6 +101,14 @@ function App() {
                     element={
                       <ProtectedRoute>
                         <MealAddPage />
+                      </ProtectedRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/meals/:mealId/edit"
+                    element={
+                      <ProtectedRoute>
+                        <MealEditPage />
                       </ProtectedRoute>
                     }
                   ></Route>
