@@ -24,114 +24,6 @@ import { toast } from "sonner";
 import ApiClient from "@/lib/ApiClient";
 import { MealDetail } from "@/types/meal";
 
-// モックデータ - 実際のアプリケーションではAPIから取得
-const mockMeals = {
-  "1": {
-    id: "1",
-    date: "2025-03-09",
-    timeOfDay: "朝食",
-    photo: "/placeholder.svg?height=300&width=500",
-    totalCalories: 550,
-    totalProtein: 25,
-    totalFat: 15,
-    totalCarbs: 75,
-    items: [
-      {
-        id: 1,
-        name: "ご飯",
-        quantity: 150,
-        unit: "g",
-        calories: 252,
-        protein: 3.8,
-        fat: 0.5,
-        carbs: 55.5,
-      },
-      {
-        id: 3,
-        name: "鶏むね肉",
-        quantity: 100,
-        unit: "g",
-        calories: 116,
-        protein: 22,
-        fat: 2.1,
-        carbs: 0,
-      },
-      {
-        id: 5,
-        name: "ブロッコリー",
-        quantity: 80,
-        unit: "g",
-        calories: 26,
-        protein: 2.6,
-        fat: 0.3,
-        carbs: 3.6,
-      },
-      {
-        id: 7,
-        name: "牛乳",
-        quantity: 200,
-        unit: "ml",
-        calories: 122,
-        protein: 6.6,
-        fat: 7.6,
-        carbs: 9.6,
-      },
-    ],
-  },
-  "2": {
-    id: "2",
-    date: "2025-03-09",
-    timeOfDay: "昼食",
-    photo: "/placeholder.svg?height=300&width=500",
-    totalCalories: 680,
-    totalProtein: 35,
-    totalFat: 22,
-    totalCarbs: 85,
-    items: [
-      {
-        id: 2,
-        name: "食パン",
-        quantity: 2,
-        unit: "枚",
-        calories: 264,
-        protein: 9.3,
-        fat: 4.1,
-        carbs: 48.5,
-      },
-      {
-        id: 6,
-        name: "卵",
-        quantity: 2,
-        unit: "個",
-        calories: 182,
-        protein: 14.8,
-        fat: 13,
-        carbs: 0.8,
-      },
-      {
-        id: 8,
-        name: "バナナ",
-        quantity: 1,
-        unit: "本",
-        calories: 86,
-        protein: 1.1,
-        fat: 0.2,
-        carbs: 22.5,
-      },
-      {
-        id: 7,
-        name: "牛乳",
-        quantity: 200,
-        unit: "ml",
-        calories: 122,
-        protein: 6.6,
-        fat: 7.6,
-        carbs: 9.6,
-      },
-    ],
-  },
-};
-
 // 栄養素の目標値（1日あたり）
 const nutritionGoals = {
   calories: 2200,
@@ -143,9 +35,7 @@ const nutritionGoals = {
 export default function MealDetailPage() {
   const navigate = useNavigate();
   const { mealId } = useParams();
-  const [meal, setMeal] = useState<
-    (typeof mockMeals)[keyof typeof mockMeals] | null
-  >(null);
+  const [meal, setMeal] = useState<MealDetail | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -167,11 +57,14 @@ export default function MealDetailPage() {
           items: [],
         };
 
+        console.log("meal items", res.data.meal_items);
+
         for (let i = 0; i < res.data.meal_items.length; i++) {
           mealData.items.push({
             id: res.data.meal_items[i].meal_item.id,
             name: res.data.meal_items[i].meal_item.name,
             quantity: res.data.meal_items[i].quantity,
+            base_quantity: res.data.meal_items[i].meal_item.base_quantity,
             unit: res.data.meal_items[i].unit,
             calories: res.data.meal_items[i].meal_item.calories,
             protein: res.data.meal_items[i].meal_item.protein,
@@ -207,6 +100,10 @@ export default function MealDetailPage() {
             description: "指定された食事が見つかりませんでした",
           });
         }
+
+        console.log(mealData);
+
+        console.log(meal);
       } catch (error) {
         console.error("食事データの取得に失敗しました", error);
         toast("エラー", {
@@ -292,7 +189,7 @@ export default function MealDetailPage() {
             </p>
           </div>
           <Badge className="bg-primary text-lg px-3 py-1">
-            {meal.totalCalories} kcal
+            {meal.totalCalories}kcal
           </Badge>
         </div>
 
@@ -367,7 +264,7 @@ export default function MealDetailPage() {
           <CardContent>
             <div className="space-y-4">
               {meal.items.map((item, index) => (
-                <div key={item.id}>
+                <div key={index}>
                   {index > 0 && <Separator className="my-4" />}
                   <div className="flex justify-between">
                     <div>
@@ -377,7 +274,13 @@ export default function MealDetailPage() {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium">{item.calories} kcal</p>
+                      <p className="font-medium">
+                        {item.base_quantity &&
+                          Math.ceil(
+                            (item.quantity / item.base_quantity) * item.calories
+                          )}{" "}
+                        kcal
+                      </p>
                       <p className="text-xs text-muted-foreground">
                         P: {item.protein}g · F: {item.fat}g · C: {item.carbs}g
                       </p>

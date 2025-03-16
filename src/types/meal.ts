@@ -24,6 +24,7 @@ export interface MealItem {
   id: number;
   name: string;
   quantity: number;
+  base_quantity?: number;
   unit: string;
   calories: number;
   protein: number;
