@@ -231,8 +231,6 @@ export default function MealAddPage() {
     const res = await ApiClient.get(
       import.meta.env.VITE_API_ROOT + `/meal/${mealId}/`
     );
-
-    console.log(res.data);
   };
 
   const fetchMealItems = async () => {
@@ -241,20 +239,16 @@ export default function MealAddPage() {
     );
 
     setFoodItems(res.data);
-    console.log(res.data);
   };
 
   const submitMealItem = async (data: FoodItemPost) => {
-    console.log(data);
     const res = await ApiClient.post(
       import.meta.env.VITE_API_ROOT + "/meal/items/",
       data
     );
 
-    const newItems = foodItems.push(res.data);
+    foodItems.push(res.data);
     setSelectedFood(res.data);
-
-    console.log(newItems);
   };
 
   return (

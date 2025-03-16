@@ -26,8 +26,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           }
         );
 
-        console.log(response.ok);
-
         setIsLoggedIn(response.ok);
       } catch (error) {
         console.error("ログインチェックエラー");

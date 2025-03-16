@@ -91,7 +91,6 @@ export default function TrainingAddPage() {
       import.meta.env.VITE_API_ROOT + "/training/",
       data
     );
-    console.log(res.data);
     setIsSubmitting(false);
     toast("トレーニングを保存しました", {
       description: "トレーニングの保存が完了しました。",

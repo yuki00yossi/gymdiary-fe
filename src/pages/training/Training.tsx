@@ -17,7 +17,6 @@ export default function TrainingPage() {
     const res = await ApiClient.get(
       import.meta.env.VITE_API_ROOT + "/training/"
     );
-    console.log(res.data);
     setTrainingData(res.data);
   };
 

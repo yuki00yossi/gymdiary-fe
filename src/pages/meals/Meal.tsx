@@ -132,7 +132,6 @@ export default function MealsPage() {
     format(selectedDate, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd");
 
   useEffect(() => {
-    console.log(selectedDate);
     fetchMealData();
   }, [selectedDate]);
 
@@ -168,7 +167,6 @@ export default function MealsPage() {
         data.nutrients.carbs.current += meal_item.meal_item.carbs;
         data.nutrients.fat.current += meal_item.meal_item.fat;
         data.nutrients.protein.current += meal_item.meal_item.protein;
-        console.log(meal_item.meal_item);
       }
 
       data.meals.push({
@@ -185,7 +183,6 @@ export default function MealsPage() {
     data.calories.consumed = totalCalories;
 
     setMealData(data);
-    console.log(data);
   };
 
   return (

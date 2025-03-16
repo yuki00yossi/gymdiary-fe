@@ -38,12 +38,9 @@ export default function TrainingDetailPage() {
       import.meta.env.VITE_API_ROOT + "/training/" + record_id
     );
     setRecord(training.data);
-    console.log(training.data);
   };
 
   const handleDelete = async () => {
-    console.log("Delete training:", record);
-    // navigate("/training");
     const deleteUrl = `${import.meta.env.VITE_API_ROOT}/training/${
       record?.id
     }/`;

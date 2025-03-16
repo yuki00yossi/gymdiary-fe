@@ -92,9 +92,6 @@ export default function TrainingEditPage() {
           import.meta.env.VITE_API_ROOT + "/training/" + params.id
         );
 
-        console.log("API response:", res.data);
-        // setRecord(res.data);
-
         form.reset({
           date: format(new Date(res.data.date), "yyyy-MM-dd"),
           workouts: res.data.workouts.map((workout: any) => ({
@@ -115,13 +112,10 @@ export default function TrainingEditPage() {
   }, [params.id, form.reset]);
 
   async function onSubmit(data: FormValues) {
-    console.log("送信データ:", data);
     const res = await ApiClient.post(
       import.meta.env.VITE_API_ROOT + "/training/",
       data
     );
-    console.log(res.data);
-    // navigate(`/training/${params.id}`);
   }
 
   if (loading) {

@@ -81,8 +81,6 @@ export function WeightFormModal({
       values
     );
 
-    console.log(res);
-
     onOpenChange(false);
     await fetchWeights();
     form.reset();

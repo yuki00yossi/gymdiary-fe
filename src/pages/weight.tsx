@@ -46,7 +46,6 @@ export default function WeightPage() {
     const res = await apiFetch(weightURL);
     const data: weightDataList = await res.json();
     setWeightData(data);
-    console.log(data);
 
     _setCalendarData(data);
   };

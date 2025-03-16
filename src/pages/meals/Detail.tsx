@@ -155,7 +155,6 @@ export default function MealDetailPage() {
         const res = await ApiClient.get(
           import.meta.env.VITE_API_ROOT + `/meal/${mealId}/`
         );
-        console.log(res.data);
         const mealData: MealDetail = {
           id: res.data.id,
           date: res.data.date,
@@ -228,7 +227,6 @@ export default function MealDetailPage() {
         throw new Error("食事データが見つかりませんでした。");
       }
       const url = `${import.meta.env.VITE_API_ROOT}/meal/${meal.id}/`;
-      console.log(url);
       await ApiClient.delete(url);
       toast("食事記録を削除しました。", {
         description: "食事記録が正常に削除されました",

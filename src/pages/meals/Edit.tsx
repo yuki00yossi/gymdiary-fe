@@ -185,7 +185,6 @@ export default function MealEditPage() {
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
-    console.log("mealitems", data.mealItems);
 
     let photoUrl = null;
     if (photoFile) {
@@ -215,7 +214,6 @@ export default function MealEditPage() {
       reqData = { ...reqData, photo_key: photoUrl };
     }
 
-    console.log("PUTデータ：", reqData);
     await ApiClient.patch(
       import.meta.env.VITE_API_ROOT + `/meal/${mealId}/`,
       reqData
@@ -250,8 +248,6 @@ export default function MealEditPage() {
         import.meta.env.VITE_API_ROOT + `/meal/${mealId}/`
       );
 
-      console.log("取得したデータ:", res.data);
-
       // フォームの値を更新
       form.setValue("date", new Date(res.data.date));
       form.setValue("timeOfDay", res.data.time_of_day);
@@ -271,8 +267,6 @@ export default function MealEditPage() {
       }
       form.setValue("mealItems", mealData || []);
 
-      console.log(mealData);
-
       // 画像のプレビューを設定
       if (res.data.photo_url) {
         setPhotoPreview(res.data.photo_url);
@@ -290,20 +284,15 @@ export default function MealEditPage() {
     setPhotoPreview(res.data.photo_url);
 
     setFoodItems(res.data);
-    console.log(res.data);
   };
 
   const submitMealItem = async (data: FoodItemPost) => {
-    console.log(data);
     const res = await ApiClient.post(
       import.meta.env.VITE_API_ROOT + "/meal/items/",
       data
     );
 
-    const newItems = foodItems.push(res.data);
     setSelectedFood(res.data);
-
-    console.log(newItems);
   };
 
   return (
