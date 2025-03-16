@@ -228,9 +228,7 @@ export default function MealAddPage() {
   }, []);
 
   const fetchMealDetail = async () => {
-    const res = await ApiClient.get(
-      import.meta.env.VITE_API_ROOT + `/meal/${mealId}/`
-    );
+    await ApiClient.get(import.meta.env.VITE_API_ROOT + `/meal/${mealId}/`);
   };
 
   const fetchMealItems = async () => {

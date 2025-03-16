@@ -112,10 +112,7 @@ export default function TrainingEditPage() {
   }, [params.id, form.reset]);
 
   async function onSubmit(data: FormValues) {
-    const res = await ApiClient.post(
-      import.meta.env.VITE_API_ROOT + "/training/",
-      data
-    );
+    await ApiClient.post(import.meta.env.VITE_API_ROOT + "/training/", data);
   }
 
   if (loading) {

@@ -76,10 +76,7 @@ export function WeightFormModal({
   }, [defaultDate, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const res = await ApiClient.post(
-      import.meta.env.VITE_API_ROOT + "/weight/",
-      values
-    );
+    await ApiClient.post(import.meta.env.VITE_API_ROOT + "/weight/", values);
 
     onOpenChange(false);
     await fetchWeights();

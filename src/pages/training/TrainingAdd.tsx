@@ -87,10 +87,7 @@ export default function TrainingAddPage() {
   async function onSubmit(data: FormValues) {
     setIsSubmitting(true);
 
-    const res = await ApiClient.post(
-      import.meta.env.VITE_API_ROOT + "/training/",
-      data
-    );
+    await ApiClient.post(import.meta.env.VITE_API_ROOT + "/training/", data);
     setIsSubmitting(false);
     toast("トレーニングを保存しました", {
       description: "トレーニングの保存が完了しました。",
