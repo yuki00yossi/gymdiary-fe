@@ -10,20 +10,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { isLoading, isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     navigate("/login");
-  //   }
-  // }, [isLoggedIn, navigate]);
   if (isLoading) {
-    return <div>Loading...</div>; // ローディング中の表示を追加することもできます
+    return <div>Loading...</div>;
   }
 
   if (isLoggedIn) {
     return children;
   } else {
     navigate("/login");
-    return null; // ローディング中の表示を追加することもできます
+    return null;
   }
 };
 
