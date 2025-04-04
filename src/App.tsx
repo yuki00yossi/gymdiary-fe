@@ -20,6 +20,8 @@ import { Toaster } from "./components/ui/sonner";
 import MealDetailPage from "./pages/meals/Detail";
 import MealEditPage from "./pages/meals/Edit";
 
+import TrainerSignupPage from "./trainer-app/pages/Signup";
+
 function App() {
   return (
     <>
@@ -32,6 +34,18 @@ function App() {
             <SiteHeader />
             <main className="flex-1 overflow-auto pt-16 pb-16 md:pb-0">
               <AuthProvider>
+                {/** トレーナー用アプリのルーティング  */}
+                <Routes>
+                  <Route
+                    path="/trainer-app/signup"
+                    element={
+                      <ProtectedRoute>
+                        <TrainerSignupPage />
+                      </ProtectedRoute>
+                    }
+                  ></Route>
+                </Routes>
+                {/** ユーザー用アプリのルーティング  */}
                 <Routes>
                   {/**  */}
                   <Route path="/" element={<SignupPage />}></Route>

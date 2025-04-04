@@ -54,7 +54,7 @@ const formSchema = z
     path: ["confirmPassword"],
   });
 
-export default function SignupPage() {
+export default function TrainerSignupPage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -131,7 +131,9 @@ export default function SignupPage() {
           </div>
           <Card className="border-none shadow-2xl bg-white/80 backdrop-blur-sm">
             <CardHeader className="space-y-1">
-              <CardTitle className="text-2xl font-bold">新規登録</CardTitle>
+              <CardTitle className="text-2xl font-bold">
+                トレーナー登録
+              </CardTitle>
               <CardDescription>
                 アカウントを作成して、トレーニングの記録を始めましょう
               </CardDescription>
@@ -272,16 +274,6 @@ export default function SignupPage() {
                       className="text-orange-600 hover:text-orange-500 hover:underline ml-1"
                     >
                       ログイン
-                    </NavLink>
-                  </p>
-
-                  <p className="text-sm text-muted-foreground text-center">
-                    トレーナーの方は
-                    <NavLink
-                      to="/trainer-app/signup"
-                      className="text-orange-600 hover:text-orange-500 hover:underline ml-1"
-                    >
-                      こちら
                     </NavLink>
                   </p>
                 </CardFooter>

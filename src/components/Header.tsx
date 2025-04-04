@@ -1,11 +1,14 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
-import { AlignJustify, Settings } from "lucide-react";
-import { useState } from "react";
+import { AlignJustify, LogOut, Settings } from "lucide-react";
+import { use, useState } from "react";
 import { Separator } from "./ui/separator";
+import { toast } from "sonner";
+import ApiClient from "@/lib/ApiClient";
 
 export function SiteHeader() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -71,6 +74,53 @@ export function SiteHeader() {
               >
                 <Settings />
                 設定
+              </NavLink>
+              <Separator className="" />
+
+              <NavLink
+                to=""
+                className="block flex mt-12 gap-2 items-center h-full w-full text-white p-2"
+                onClick={async (e) => {
+                  e.preventDefault();
+                  // ログアウト処理を実行
+                  // fetch(import.meta.env.VITE_API_ROOT + "/account/logout/", {
+                  //   method: "POST",
+                  //   credentials: "include",
+                  // })
+                  try {
+                    const res = await ApiClient.post(
+                      import.meta.env.VITE_API_ROOT + "/account/logout/"
+                    );
+                    console.log(res);
+                    if (res.status === 200) {
+                      // ログアウト成功
+                      console.log("ログアウト成功");
+                      toast("ログアウト成功", {
+                        duration: 1500,
+                        description: "ログアウトしました",
+                      });
+                      navigate("/login");
+                    } else {
+                      console.error("ログアウト失敗");
+                      toast("ログアウト失敗", {
+                        duration: 1500,
+                        description: "ログアウト時にエラーが発生しました",
+                      });
+                    }
+                  } catch (error: unknown) {
+                    if (error instanceof Error) {
+                      console.error("ログアウトエラー", error.message);
+                      toast("ログアウト失敗", {
+                        duration: 1500,
+                        description: "ログアウト時にエラーが発生しました",
+                      });
+                    }
+                  }
+                  setIsOpenMenu(!isOpenMenu);
+                }}
+              >
+                <LogOut />
+                ログアウト
               </NavLink>
               <Separator className="" />
             </div>
