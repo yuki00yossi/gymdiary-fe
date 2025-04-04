@@ -7,19 +7,23 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { isLoggedIn } = useAuth();
+  const { isLoading, isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
-  }, [isLoggedIn, navigate]);
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     navigate("/login");
+  //   }
+  // }, [isLoggedIn, navigate]);
+  if (isLoading) {
+    return <div>Loading...</div>; // ローディング中の表示を追加することもできます
+  }
 
   if (isLoggedIn) {
     return children;
   } else {
-    return null;
+    navigate("/login");
+    return null; // ローディング中の表示を追加することもできます
   }
 };
 

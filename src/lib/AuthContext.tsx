@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 interface AuthContextType {
   isLoggedIn: boolean; // ログイン状態
   setIsLoggedIn: (status: boolean) => void;
+  isLoading: boolean; // ログインチェック中の状態
 
   apiFetch: (url: string, options?: RequestInit) => Promise<Response>;
 }
@@ -14,6 +15,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,6 +32,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       } catch (error) {
         console.error("ログインチェックエラー");
         setIsLoggedIn(false);
+      } finally {
+        setIsLoading(false);
       }
     };
     checkLoginStatus();
@@ -59,7 +63,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, apiFetch }}>
+    <AuthContext.Provider
+      value={{ isLoading, isLoggedIn, setIsLoggedIn, apiFetch }}
+    >
       {children}
     </AuthContext.Provider>
   );

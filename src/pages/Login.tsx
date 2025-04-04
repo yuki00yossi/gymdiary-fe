@@ -71,7 +71,7 @@ export default function LoginPage() {
 
   return (
     <AnimatedPage>
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950 dark:to-orange-900">
+      <div className="min-h-screen flex flex-col items-center p-4 pt-20 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950 dark:to-orange-900">
         <div className="w-full max-w-lg space-y-8">
           <div className="flex flex-col items-center space-y-4">
             <div className="w-24 h-24 relative">
