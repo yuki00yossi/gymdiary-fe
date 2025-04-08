@@ -26,6 +26,7 @@ import { Loader2 } from "lucide-react";
 import { AnimatedPage } from "@/components/animated-page";
 import { useAuth } from "@/lib/AuthContext";
 import ApiClient from "@/lib/ApiClient";
+import { AxiosError } from "axios";
 
 const formSchema = z.object({
   username: z.string().min(1, "ユーザー名を入力してください"),
@@ -38,6 +39,7 @@ const formSchema = z.object({
 export default function LoginPage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  // const [needVerify, setNeedVerify] = useState(false);
   const { setIsLoggedIn } = useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -57,13 +59,25 @@ export default function LoginPage() {
       await ApiClient.post(loginURL, values);
       setIsLoggedIn(true);
       navigate("/weight");
-    } catch (error) {
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        console.error("ログインエラー", error);
+        if (error.response?.status === 403) {
+          form.setError("root", {
+            type: "manual",
+            message: "アカウントの有効化が必要です",
+          });
+          // setNeedVerify(true);
+        }
+      } else {
+        console.error("ログインエラー", error);
+        form.setError("root", {
+          type: "manual",
+          message: "ログインに失敗しました",
+        });
+      }
       setIsLoggedIn(false);
       console.error(error);
-      form.setError("root", {
-        type: "manual",
-        message: "ログインに失敗しました",
-      });
     } finally {
       setIsLoading(false);
     }
@@ -137,6 +151,14 @@ export default function LoginPage() {
                       {form.formState.errors.root.message}
                     </p>
                   )}
+                  <div className="text-sm">
+                    <NavLink
+                      to="/forgot-password"
+                      className="text-orange-600 hover:text-orange-500 hover:underline"
+                    >
+                      パスワードをお忘れですか？
+                    </NavLink>
+                  </div>
                   <div className="text-sm">
                     <NavLink
                       to="/forgot-password"

@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { AlignJustify, LogOut, Settings } from "lucide-react";
-import { use, useState } from "react";
+import { useState } from "react";
 import { Separator } from "./ui/separator";
 import { toast } from "sonner";
 import ApiClient from "@/lib/ApiClient";

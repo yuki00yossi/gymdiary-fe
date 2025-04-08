@@ -33,6 +33,10 @@ import { AxiosError } from "axios";
 const formSchema = z
   .object({
     name: z.string().min(1, "名前を入力してください"),
+    email: z
+      .string()
+      .min(1, "メールアドレスを入力してください")
+      .email("無効なメールアドレスです"),
     username: z
       .string()
       .min(1, "メールアドレスを入力してください")
@@ -62,6 +66,7 @@ export default function SignupPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      email: "",
       username: "",
       password: "",
       confirmPassword: "",
@@ -79,10 +84,13 @@ export default function SignupPage() {
         {
           username: values.username,
           password: values.password,
+          email: values.email,
           name: values.name,
           role: "member",
         }
       );
+
+      navigate("/account/email_verification?user=" + values.username);
 
       toast("会員登録が完了しました。", {
         description: "会員登録が完了しました。ログインしてください。",
@@ -141,24 +149,6 @@ export default function SignupPage() {
                 <CardContent className="space-y-4">
                   <FormField
                     control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>名前</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="たろう"
-                            className="bg-white"
-                            {...field}
-                            autoComplete="name"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
                     name="username"
                     render={({ field }) => (
                       <FormItem>
@@ -176,6 +166,44 @@ export default function SignupPage() {
                       </FormItem>
                     )}
                   />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>メールアドレス</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="taro@example.com"
+                            className="bg-white"
+                            {...field}
+                            autoComplete="email"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>名前</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="たろう"
+                            className="bg-white"
+                            {...field}
+                            autoComplete="name"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
                   <FormField
                     control={form.control}
                     name="password"
@@ -216,7 +244,7 @@ export default function SignupPage() {
                     control={form.control}
                     name="terms"
                     render={({ field }) => (
-                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4 hidden">
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4">
                         <FormControl>
                           <Checkbox
                             checked={field.value}

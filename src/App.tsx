@@ -21,8 +21,27 @@ import MealDetailPage from "./pages/meals/Detail";
 import MealEditPage from "./pages/meals/Edit";
 
 import TrainerSignupPage from "./trainer-app/pages/Signup";
+import VerifyEmailPage from "./pages/account/email_verification";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    // CSRFトークンを取得する
+    fetchCsrfToken();
+  }, []);
+
+  // CSRFトークンを取得する関数
+  const fetchCsrfToken = async () => {
+    try {
+      const response = await fetch(import.meta.env.VITE_API_ROOT + "/csrf/");
+      if (!response.ok) {
+        throw new Error("Failed to fetch CSRF token");
+      }
+    } catch (error) {
+      console.error("Error fetching CSRF token:", error);
+    }
+  };
+
   return (
     <>
       <SidebarProvider>
@@ -136,7 +155,13 @@ function App() {
                       </ProtectedRoute>
                     }
                   ></Route>
+
+                  {/* アカウント関連 */}
                   <Route path="/login" element={<LoginPage />}></Route>
+                  <Route
+                    path="/account/email_verification"
+                    element={<VerifyEmailPage />}
+                  ></Route>
                 </Routes>
               </AuthProvider>
             </main>
