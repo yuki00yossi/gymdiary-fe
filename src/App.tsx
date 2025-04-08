@@ -34,7 +34,10 @@ function App() {
   const fetchCsrfToken = async () => {
     try {
       const response = await fetch(
-        import.meta.env.VITE_API_ROOT + "/account/csrf/"
+        import.meta.env.VITE_API_ROOT + "/account/csrf/",
+        {
+          credentials: "include",
+        }
       );
       if (!response.ok) {
         throw new Error("Failed to fetch CSRF token");
