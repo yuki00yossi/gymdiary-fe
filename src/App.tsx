@@ -33,7 +33,9 @@ function App() {
   // CSRFトークンを取得する関数
   const fetchCsrfToken = async () => {
     try {
-      const response = await fetch(import.meta.env.VITE_API_ROOT + "/csrf/");
+      const response = await fetch(
+        import.meta.env.VITE_API_ROOT + "/account/csrf/"
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch CSRF token");
       }
