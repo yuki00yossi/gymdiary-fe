@@ -34,7 +34,7 @@ export default function MySetPage() {
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">マイセット一覧</h1>
           <Button asChild>
-            <NavLink to="/training/myset/create" className="text-xs">
+            <NavLink to="/training/myset/create" className="text-sm">
               <Plus className="mr-2 h-4 w-4" />
               新規作成
             </NavLink>

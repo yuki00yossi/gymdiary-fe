@@ -53,7 +53,7 @@ export function SetInput({
       <div className="flex justify-between items-center">
         <h3 className="font-medium">セット {setIndex + 1}</h3>
         {previousSet && (
-          <span className="text-xs text-muted-foreground">前回の記録あり</span>
+          <span className="text-sm text-muted-foreground">前回の記録あり</span>
         )}
       </div>
 
@@ -62,20 +62,20 @@ export function SetInput({
           <>
             <div className="space-y-2">
               <div className="space-y-2">
-                <Label className="text-xs">目標重量 ({workout.unit})</Label>
-                <Label className="text-xs py-2">
+                <Label className="text-sm">目標重量 ({workout.unit})</Label>
+                <Label className="text-sm py-2">
                   {value.weight}
                   {workout.unit}
                 </Label>
               </div>
               <div className="flex justify-between">
-                <Label htmlFor={`weight-${setIndex}`} className="text-xs">
+                <Label htmlFor={`weight-${setIndex}`} className="text-sm">
                   重量 ({workout.unit})
                 </Label>
                 {previousSet?.weight && (
                   <span
                     className={cn(
-                      "text-xs",
+                      "text-sm",
                       getComparisonClass(
                         "weight",
                         value.weight,
@@ -103,22 +103,22 @@ export function SetInput({
                 step="0.5"
                 value={value.weight || ""}
                 onChange={(e) => handleChange("weight", e.target.value)}
-                className="h-9 text-xs"
+                className="h-9 text-sm"
               />
             </div>
             <div className="space-y-2">
               <div className="space-y-2">
-                <Label className="text-xs">目標回数</Label>
-                <Label className="text-xs py-2">{value.reps} 回</Label>
+                <Label className="text-sm">目標回数</Label>
+                <Label className="text-sm py-2">{value.reps} 回</Label>
               </div>
               <div className="flex justify-between">
-                <Label htmlFor={`reps-${setIndex}`} className="text-xs">
+                <Label htmlFor={`reps-${setIndex}`} className="text-sm">
                   回数
                 </Label>
                 {previousSet?.reps && (
                   <span
                     className={cn(
-                      "text-xs",
+                      "text-sm",
                       getComparisonClass("reps", value.reps, previousSet.reps)
                     )}
                   >
@@ -137,7 +137,7 @@ export function SetInput({
                 type="number"
                 value={value.reps || ""}
                 onChange={(e) => handleChange("reps", e.target.value)}
-                className="h-9 text-xs"
+                className="h-9 text-sm"
               />
             </div>
           </>
@@ -147,13 +147,13 @@ export function SetInput({
           <>
             <div className="space-y-2">
               <div className="flex justify-between">
-                <Label htmlFor={`distance-${setIndex}`} className="text-xs">
+                <Label htmlFor={`distance-${setIndex}`} className="text-sm">
                   距離 ({workout.unit})
                 </Label>
                 {previousSet?.distance && (
                   <span
                     className={cn(
-                      "text-xs",
+                      "text-sm",
                       getComparisonClass(
                         "distance",
                         value.distance,
@@ -181,12 +181,12 @@ export function SetInput({
                 step="0.01"
                 value={value.distance || ""}
                 onChange={(e) => handleChange("distance", e.target.value)}
-                className="h-9 text-xs"
+                className="h-9 text-sm"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor={`time-${setIndex}`} className="text-xs">
+              <Label htmlFor={`time-${setIndex}`} className="text-sm">
                 時間
               </Label>
               <Input
@@ -195,7 +195,7 @@ export function SetInput({
                 placeholder="00:00"
                 value={value.time || ""}
                 onChange={(e) => handleChange("time", e.target.value)}
-                className="h-9 text-xs"
+                className="h-9 text-sm"
               />
             </div>
           </>

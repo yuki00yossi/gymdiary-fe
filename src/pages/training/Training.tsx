@@ -26,14 +26,14 @@ export default function TrainingPage() {
         <div className="w-full flex justify-between items-center">
           <h1 className="text-2xl font-bold">ワークアウト</h1>
           <Button asChild className="bg-secondary">
-            <NavLink to="/training/myset" className="text-xs">
+            <NavLink to="/training/myset" className="text-sm">
               <span className="text-primary">マイセット</span>
             </NavLink>
           </Button>
         </div>
         <div>
           <Button asChild className="w-full">
-            <NavLink to="/training/create" className="text-xs">
+            <NavLink to="/training/create" className="text-sm">
               <Plus className="h-4 w-4" />
               記録する
             </NavLink>

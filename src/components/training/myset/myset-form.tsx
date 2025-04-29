@@ -290,7 +290,7 @@ function WorkoutCard({
                   <FormLabel>種目名</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-xs"
+                      className="text-sm"
                       placeholder="例: ベンチプレス"
                       {...field}
                     />
@@ -330,10 +330,10 @@ function WorkoutCard({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem className="text-xs" value="weight">
+                      <SelectItem className="text-sm" value="weight">
                         重量
                       </SelectItem>
-                      <SelectItem className="text-xs" value="distance">
+                      <SelectItem className="text-sm" value="distance">
                         距離
                       </SelectItem>
                     </SelectContent>
@@ -351,7 +351,7 @@ function WorkoutCard({
                   <FormLabel>単位</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-xs"
+                      className="text-sm"
                       placeholder="例: kg"
                       {...field}
                     />
@@ -368,7 +368,7 @@ function WorkoutCard({
               <Button
                 type="button"
                 variant="outline"
-                className="text-xs"
+                className="text-sm"
                 size="sm"
                 onClick={() => {
                   const type = form.getValues(`workouts.${workoutIndex}.type`);
@@ -401,7 +401,7 @@ function WorkoutCard({
                     animate={{ opacity: 1, y: 0 }}
                     className="flex items-center space-x-2 p-3 rounded-md bg-muted/50"
                   >
-                    <div className="font-medium text-xs w-16 text-center">
+                    <div className="font-medium text-sm w-16 text-center">
                       セット {setIndex + 1}
                     </div>
 
@@ -413,14 +413,14 @@ function WorkoutCard({
                             name={`${setsPath}.${setIndex}.weight`}
                             render={({ field }) => (
                               <FormItem className="flex flex-col">
-                                <FormLabel className="text-xs">重量</FormLabel>
+                                <FormLabel className="text-sm">重量</FormLabel>
                                 <FormControl>
                                   <Input
                                     type="number"
                                     min="0"
                                     step="0.5"
                                     {...field}
-                                    className="h-6 text-xs"
+                                    className="h-6 text-sm"
                                     onChange={(e) => {
                                       console.log(Number(e.target.value));
                                       e.target.value = Number(
@@ -439,13 +439,13 @@ function WorkoutCard({
                             name={`${setsPath}.${setIndex}.reps`}
                             render={({ field }) => (
                               <FormItem className="flex flex-col">
-                                <FormLabel className="text-xs">回数</FormLabel>
+                                <FormLabel className="text-sm">回数</FormLabel>
                                 <FormControl>
                                   <Input
                                     type="number"
                                     min="1"
                                     {...field}
-                                    className="h-6 text-xs"
+                                    className="h-6 text-sm"
                                     onChange={(e) =>
                                       field.onChange(Number(e.target.value))
                                     }
@@ -462,7 +462,7 @@ function WorkoutCard({
                             name={`${setsPath}.${setIndex}.distance`}
                             render={({ field }) => (
                               <FormItem className="flex flex-col">
-                                <FormLabel className="text-xs">距離</FormLabel>
+                                <FormLabel className="text-sm">距離</FormLabel>
                                 <FormControl>
                                   <Input
                                     type="number"
@@ -484,7 +484,7 @@ function WorkoutCard({
                             name={`${setsPath}.${setIndex}.time`}
                             render={({ field }) => (
                               <FormItem className="flex flex-col">
-                                <FormLabel className="text-xs">時間</FormLabel>
+                                <FormLabel className="text-sm">時間</FormLabel>
                                 <FormControl>
                                   <Input
                                     type="text"
@@ -558,7 +558,7 @@ function WorkoutCard({
                   <FormControl>
                     <Textarea
                       placeholder="種目に関するメモ..."
-                      className="text-xs"
+                      className="text-sm"
                       {...field}
                       value={field.value || ""}
                     />

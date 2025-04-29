@@ -66,7 +66,7 @@ export function MySetDetailView({ mySet }: MySetDetailProps) {
             <Button variant="outline" size="sm" asChild>
               <NavLink
                 to={`/training/myset/${mySet.id}/edit`}
-                className="text-xs"
+                className="text-sm"
               >
                 <Edit className="mr-1 h-4 w-4" />
                 編集
@@ -74,7 +74,7 @@ export function MySetDetailView({ mySet }: MySetDetailProps) {
             </Button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="outline" size="sm" className="text-xs">
+                <Button variant="outline" size="sm" className="text-sm">
                   <Trash2 className="mr-1 h-4 w-4" />
                   削除
                 </Button>
@@ -108,7 +108,7 @@ export function MySetDetailView({ mySet }: MySetDetailProps) {
           <Button className="w-full" asChild>
             <NavLink
               to={`/training/myset/${mySet.id}/start`}
-              className="text-xs"
+              className="text-sm"
             >
               <Play className="mr-2 h-4 w-4" />
               記録開始
@@ -131,7 +131,7 @@ export function MySetDetailView({ mySet }: MySetDetailProps) {
                     key={set.id}
                     className="flex items-center p-3 rounded-md bg-muted/30"
                   >
-                    <div className="font-medium text-xs w-16 text-center">
+                    <div className="font-medium text-sm w-16 text-center">
                       セット {index + 1}
                     </div>
 
@@ -139,24 +139,24 @@ export function MySetDetailView({ mySet }: MySetDetailProps) {
                       {workout.type === "weight" ? (
                         <>
                           <div>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-sm text-muted-foreground">
                               重量
                             </p>
-                            <p className="font-medium text-xs">
+                            <p className="font-medium text-sm">
                               {set.weight} {workout.unit}
                             </p>
                           </div>
                           <div>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-sm text-muted-foreground">
                               回数
                             </p>
-                            <p className="font-medium text-xs">{set.reps}</p>
+                            <p className="font-medium text-sm">{set.reps}</p>
                           </div>
                         </>
                       ) : (
                         <>
                           <div>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-sm text-muted-foreground">
                               距離
                             </p>
                             <p className="font-medium">
@@ -164,7 +164,7 @@ export function MySetDetailView({ mySet }: MySetDetailProps) {
                             </p>
                           </div>
                           <div>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-sm text-muted-foreground">
                               時間
                             </p>
                             <p className="font-medium">{set.time}</p>
@@ -177,7 +177,7 @@ export function MySetDetailView({ mySet }: MySetDetailProps) {
               </div>
               {workout.memo && (
                 <div className="mb-4 p-3 bg-muted rounded-md">
-                  <p className="text-xs">{workout.memo}</p>
+                  <p className="text-sm">{workout.memo}</p>
                 </div>
               )}
             </div>

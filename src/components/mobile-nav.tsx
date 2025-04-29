@@ -45,7 +45,7 @@ export function MobileNav() {
               key={route.href}
               to={route.href}
               className={cn(
-                "flex flex-col items-center justify-center flex-1 gap-1 text-xs font-medium transition-colors"
+                "flex flex-col items-center justify-center flex-1 gap-1 text-sm font-medium transition-colors"
               )}
             >
               <Icon className="w-5 h-5" />
