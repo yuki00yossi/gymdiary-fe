@@ -446,9 +446,12 @@ function WorkoutCard({
                                     min="1"
                                     {...field}
                                     className="h-6 text-xs"
-                                    onChange={(e) =>
-                                      field.onChange(Number(e.target.value))
-                                    }
+                                    onChange={(e) => {
+                                      e.target.value = Number(
+                                        e.target.value
+                                      ).toString();
+                                      field.onChange(Number(e.target.value));
+                                    }}
                                   />
                                 </FormControl>
                               </FormItem>
@@ -470,9 +473,12 @@ function WorkoutCard({
                                     step="0.1"
                                     {...field}
                                     className="h-8"
-                                    onChange={(e) =>
-                                      field.onChange(Number(e.target.value))
-                                    }
+                                    onChange={(e) => {
+                                      e.target.value = Number(
+                                        e.target.value
+                                      ).toString();
+                                      field.onChange(Number(e.target.value));
+                                    }}
                                   />
                                 </FormControl>
                               </FormItem>
