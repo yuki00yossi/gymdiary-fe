@@ -38,13 +38,13 @@ export function StepProgressBar({
 
   return (
     <div className="w-full space-y-2">
-      <div className="flex justify-between text-sm text-muted-foreground">
+      <div className="flex justify-between text-xs text-muted-foreground">
         <span>開始</span>
         <span>{Math.round(progress)}%</span>
         <span>完了</span>
       </div>
       <Progress value={progress} className="h-2" />
-      <div className="flex justify-between text-sm">
+      <div className="flex justify-between text-xs">
         <span
           className={cn(
             "font-medium",

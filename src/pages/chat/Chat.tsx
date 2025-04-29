@@ -76,11 +76,11 @@ export default function Chat() {
                       >
                         <div className="flex items-center justify-between">
                           <span className="font-semibold">{room.title}</span>
-                          <span className="text-sm text-muted-foreground">
+                          <span className="text-xs text-muted-foreground">
                             {format(room.timestamp, "MM/dd", { locale: ja })}
                           </span>
                         </div>
-                        <div className="mt-1 truncate text-sm text-muted-foreground">
+                        <div className="mt-1 truncate text-xs text-muted-foreground">
                           {room.lastMessage}
                         </div>
                       </div>

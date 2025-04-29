@@ -71,7 +71,7 @@ export function TrainingFinish({
       {sessionData.workouts.map((workout, idx) => (
         <div key={idx} className="bg-muted/50 p-3 rounded-md">
           <div className="text-sm font-medium">{workout.menu}</div>
-          <div className="text-sm text-muted-foreground">
+          <div className="text-xs text-muted-foreground">
             {workout.sets.length} セット •{" "}
             {workout.type === "weight" ? "重量" : "距離"}トレーニング
           </div>
@@ -102,8 +102,8 @@ export function TrainingFinish({
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="text-center">
-            <p className="text-sm font-medium">お疲れ様でした！</p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs font-medium">お疲れ様でした！</p>
+            <p className="text-xs text-muted-foreground">
               素晴らしいトレーニングでした！
             </p>
           </div>
@@ -111,11 +111,11 @@ export function TrainingFinish({
           <div className="bg-muted p-4 rounded-lg">
             <h3 className="text-sm font-medium mb-2">{sessionData.name}</h3>
             <div className="grid grid-cols-2 gap-2 text-sm">
-              <div className="text-sm">
+              <div className="text-xs">
                 <span className="text-muted-foreground">種目数:</span>{" "}
                 {sessionData.workouts.length}
               </div>
-              <div className="text-sm">
+              <div className="text-xs">
                 <span className="text-muted-foreground">合計セット:</span>{" "}
                 {totalSets}
               </div>
@@ -134,13 +134,13 @@ export function TrainingFinish({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={4}
-              className="text-sm"
+              className="text-xs"
             />
           </div>
 
           <div className="bg-primary/10 p-4 rounded-lg text-center">
-            <p className="italic text-sm">"{randomQuote.quote}"</p>
-            <p className="text-sm text-muted-foreground mt-2">
+            <p className="italic text-xs">"{randomQuote.quote}"</p>
+            <p className="text-xs text-muted-foreground mt-2">
               - {randomQuote.author}
             </p>
           </div>

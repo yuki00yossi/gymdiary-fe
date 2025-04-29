@@ -121,8 +121,8 @@ export function IntervalTimer({
           <CardTitle className="text-center text-md">インターバル</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          <p className="text-sm text-center">
-            お疲れ様です！少し休んで次に備えよう！
+          <p className="text-xs text-center">
+            お疲れ様です！少し休んで次に備えましょう！
           </p>
           {/* 完了した種目の情報 */}
           {/* <div className="p-3 bg-muted rounded-md">
@@ -182,7 +182,7 @@ export function IntervalTimer({
                 {formatTime(customSeconds)}
               </span>
               <Button
-                className="bg-primary text-white text-sm"
+                className="bg-primary text-white text-xs"
                 size="sm"
                 variant="secondary"
                 onClick={applyCustomTime}
@@ -197,7 +197,7 @@ export function IntervalTimer({
           <div className="space-y-2 mt-4 border-t pt-4">
             <p className="text-sm font-bold">メモ</p>
             <textarea
-              className="w-full p-2 border rounded-md text-sm"
+              className="w-full p-2 border rounded-md text-xs"
               placeholder="このセットで感じたことをメモしておこう！最後のセットの感想や、次回の目標など..."
               value={memo}
               onChange={(e) => onMemoChange(e.target.value)}
@@ -211,7 +211,7 @@ export function IntervalTimer({
               <h3 className="font-medium mb-1">次の種目</h3>
               <p className="text-sm">{nextWorkout.menu}</p>
               {nextWorkout.memo && (
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   {nextWorkout.memo}
                 </p>
               )}
@@ -227,7 +227,7 @@ export function IntervalTimer({
           {hasNextWorkout && onSkipToNextWorkout && (
             <Button
               variant="outline"
-              className="w-full font-normal text-sm"
+              className="w-full font-normal text-xs"
               onClick={onSkipToNextWorkout}
             >
               残セットをスキップして次の種目へ
@@ -249,7 +249,7 @@ export function IntervalTimer({
           {/* トレーニング終了ボタン */}
           <Button
             variant="outline"
-            className="w-full text-sm text-red-500 hover:text-red-600"
+            className="w-full text-xs text-red-500 hover:text-red-600"
             onClick={handleEndTrainingClick}
           >
             <XCircle className="mr-2 h-4 w-4" />

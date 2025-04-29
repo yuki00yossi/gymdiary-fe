@@ -281,7 +281,7 @@ export default function MealDetailPage() {
                           )}{" "}
                         kcal
                       </p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-xs text-muted-foreground">
                         P: {item.protein}g · F: {item.fat}g · C: {item.carbs}g
                       </p>
                     </div>

@@ -136,7 +136,7 @@ export function ShareModal({
 
                 {images.length > 1 && (
                   <div className="absolute bottom-6 left-0 right-0 flex justify-center">
-                    <div className="bg-yellow-500/80 text-white rounded-full px-3 py-1 text-sm font-bold">
+                    <div className="bg-yellow-500/80 text-white rounded-full px-3 py-1 text-xs font-bold">
                       {currentImageIndex + 1} / {images.length}
                     </div>
                   </div>
@@ -182,23 +182,23 @@ export function ShareModal({
                       {isSharing ? (
                         <Loader2 className="h-6 w-6 animate-spin" />
                       ) : (
-                        <Share2 className="h-6 w-6" />
+                        <Share2 className="h-6 w-6 mb-1" />
                       )}
-                      <span className="text-sm">シェア</span>
+                      <span className="text-xs">シェア</span>
                     </Button>
                     <Button
                       variant="outline"
                       className="flex flex-col items-center py-6"
                     >
-                      <Twitter className="h-6 w-6" />
-                      <span className="text-sm">Twitter</span>
+                      <Twitter className="h-6 w-6 mb-1" />
+                      <span className="text-xs">Twitter</span>
                     </Button>
                     <Button
                       variant="outline"
                       className="flex flex-col items-center py-6"
                     >
-                      <Instagram className="h-6 w-6" />
-                      <span className="text-sm">Instagram</span>
+                      <Instagram className="h-6 w-6 mb-1" />
+                      <span className="text-xs">Instagram</span>
                     </Button>
                   </div>
                 </TabsContent>

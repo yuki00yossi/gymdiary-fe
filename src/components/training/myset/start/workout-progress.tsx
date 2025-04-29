@@ -130,7 +130,7 @@ export function WorkoutProgress({
           <CardTitle>{currentWorkout.menu}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-xs">
             <span>
               種目 {workoutIndex + 1}/{sessionData.workouts.length}
             </span>
@@ -140,7 +140,7 @@ export function WorkoutProgress({
           </div>
 
           {currentWorkout.memo && (
-            <div className="p-3 bg-muted rounded-md text-sm">
+            <div className="p-3 bg-muted rounded-md text-xs">
               <p>{currentWorkout.memo}</p>
             </div>
           )}
@@ -160,14 +160,14 @@ export function WorkoutProgress({
           />
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
-          <Button onClick={handleCompleteSet} className="w-full text-sm">
+          <Button onClick={handleCompleteSet} className="w-full text-xs">
             保存して次へ <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
 
           {/* トレーニング終了ボタン */}
           <Button
             variant="outline"
-            className="w-full text-sm text-red-500 hover:text-red-600"
+            className="w-full text-xs text-red-500 hover:text-red-600"
             onClick={handleEndTrainingClick}
           >
             <XCircle className="mr-2 h-4 w-4" />

@@ -31,7 +31,7 @@ export function TodayMenu({ sessionData, onStart }: TodayMenuProps) {
       <Card>
         <CardHeader>
           <CardTitle>{sessionData.name}</CardTitle>
-          <CardDescription className="text-sm">
+          <CardDescription className="text-xs">
             全{sessionData.workouts.length}種目 / 合計
             {totalSets}セット
           </CardDescription>
@@ -47,13 +47,13 @@ export function TodayMenu({ sessionData, onStart }: TodayMenuProps) {
               </div>
 
               {workout.memo && (
-                <p className="text-sm text-muted-foreground mb-3">
+                <p className="text-xs text-muted-foreground mb-3">
                   {workout.memo}
                 </p>
               )}
 
               <div className="space-y-2">
-                <div className="flex items-center text-sm font-bold pb-2">
+                <div className="flex items-center text-xs font-bold pb-2">
                   <span className="w-16">セット数</span>
                   <span className="flex-1">目標</span>
                   <span>回数</span>
@@ -61,7 +61,7 @@ export function TodayMenu({ sessionData, onStart }: TodayMenuProps) {
                 {workout.sets.map((set, setIndex) => (
                   <div
                     key={setIndex}
-                    className="flex items-center text-sm border-b pb-2 last:border-0"
+                    className="flex items-center text-xs border-b pb-2 last:border-0"
                   >
                     <span className="w-16">セット {setIndex + 1}:</span>
                     {workout.type === "weight" ? (

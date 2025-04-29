@@ -505,7 +505,7 @@ export default function MealEditPage() {
                                     >
                                       <div className="flex flex-col">
                                         <span>{food.name}</span>
-                                        <span className="text-sm text-muted-foreground">
+                                        <span className="text-xs text-muted-foreground">
                                           {food.calories}kcal /{" "}
                                           {food.base_quantity}
                                           {food.unit}

@@ -54,14 +54,14 @@ export function MySetList({ mySets }: MySetListProps) {
                   </p>
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-between text-sm">
-                <Button variant="outline" size="sm" asChild className="text-sm">
+              <CardFooter className="flex justify-between text-xs">
+                <Button variant="outline" size="sm" asChild className="text-xs">
                   <NavLink to={`/training/myset/${mySet.id}`}>
                     <Eye className="mr-2 h-4 w-4" />
                     見る
                   </NavLink>
                 </Button>
-                <Button size="sm" asChild className="text-sm">
+                <Button size="sm" asChild className="text-xs">
                   <NavLink to={`/training/myset/${mySet.id}/record`}>
                     <Play className="mr-2 h-4 w-4" />
                     記録開始

@@ -77,7 +77,7 @@ function CircularProgress({
           <div className="text-xl font-bold">
             {Math.ceil(calories?.total! - calories?.consumed!)}
           </div>
-          <div className="text-sm text-muted-foreground">kcal</div>
+          <div className="text-xs text-muted-foreground">kcal</div>
         </div>
       ) : (
         <div className="absolute inset-0 flex items-center justify-center">
@@ -98,7 +98,7 @@ function CaloriesSummary({
   return (
     <div className="flex px-5 items-center justify-between mb-6">
       <div className="text-center">
-        <div className="text-sm text-muted-foreground">摂取</div>
+        <div className="text-xs text-muted-foreground">摂取</div>
         <div className="text-sm font-bold">{consumed}kcal</div>
       </div>
       <div className="">
@@ -114,7 +114,7 @@ function CaloriesSummary({
         />
       </div>
       <div className="text-center">
-        <div className="text-sm text-muted-foreground">目標</div>
+        <div className="text-xs text-muted-foreground">目標</div>
         <div className="text-sm font-bold">{target}kcal</div>
       </div>
     </div>
@@ -212,7 +212,7 @@ export default function MealsPage() {
           />
           <div className="flex justify-between">
             <div className="space-y-1.5">
-              <div className="text-sm text-center">
+              <div className="text-xs text-center">
                 <span>炭水化物</span>
               </div>
               <Progress
@@ -223,13 +223,13 @@ export default function MealsPage() {
                 }
                 className="h-2 mb-0"
               />
-              <span className="text-sm text-muted-foreground text-center">
+              <span className="text-xs text-muted-foreground text-center">
                 {mealData.nutrients.carbs.current} /{" "}
                 {mealData.nutrients.carbs.target}g
               </span>
             </div>
             <div className="space-y-1.5">
-              <div className="text-sm text-center">
+              <div className="text-xs text-center">
                 <span>タンパク質</span>
               </div>
               <Progress
@@ -240,13 +240,13 @@ export default function MealsPage() {
                 }
                 className="h-2 mb-0"
               />
-              <span className="text-sm text-muted-foreground text-center">
+              <span className="text-xs text-muted-foreground text-center">
                 {mealData.nutrients.protein.current} /{" "}
                 {mealData.nutrients.protein.target}g
               </span>
             </div>
             <div className="space-y-1.5">
-              <div className="text-sm text-center">
+              <div className="text-xs text-center">
                 <span>脂質</span>
               </div>
               <Progress
@@ -257,7 +257,7 @@ export default function MealsPage() {
                 }
                 className="h-2 mb-0"
               />
-              <span className="text-sm text-muted-foreground text-center">
+              <span className="text-xs text-muted-foreground text-center">
                 {mealData.nutrients.fat.current} /{" "}
                 {mealData.nutrients.fat.target}g
               </span>
