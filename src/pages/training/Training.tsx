@@ -24,11 +24,18 @@ export default function TrainingPage() {
     <AnimatedPage>
       <div className="p-4 w-full md:container md:mx-auto md:p-6 space-y-6">
         <div className="w-full flex justify-between items-center">
-          <h1 className="text-3xl font-bold">トレ履歴</h1>
-          <Button asChild>
-            <NavLink to="/training/add">
-              <Plus className="mr-2 h-4 w-4" />
-              トレ追加
+          <h1 className="text-2xl font-bold">ワークアウト</h1>
+          <Button asChild className="bg-secondary">
+            <NavLink to="/training/myset" className="text-xs">
+              <span className="text-primary">マイセット</span>
+            </NavLink>
+          </Button>
+        </div>
+        <div>
+          <Button asChild className="w-full">
+            <NavLink to="/training/create" className="text-xs">
+              <Plus className="h-4 w-4" />
+              記録する
             </NavLink>
           </Button>
         </div>

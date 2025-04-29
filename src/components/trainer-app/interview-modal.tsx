@@ -40,11 +40,7 @@ const AVAILABLE_TIMES = [
   "22:00",
 ];
 
-export function InterviewModal({
-  isOpen,
-  onClose,
-  trainerProfile,
-}: InterviewModalProps) {
+export function InterviewModal({ isOpen, onClose }: InterviewModalProps) {
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [time, setTime] = useState<string | undefined>(undefined);
   const [isSubmitting, setIsSubmitting] = useState(false);

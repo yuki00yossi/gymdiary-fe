@@ -23,6 +23,11 @@ import MealEditPage from "./pages/meals/Edit";
 import TrainerSignupPage from "./trainer-app/pages/Signup";
 import VerifyEmailPage from "./pages/account/email_verification";
 import { useEffect } from "react";
+import MySetListContent from "./pages/training/myset/MySetList";
+import CreateMySetPage from "./pages/training/myset/create";
+import MySetDetailPage from "./pages/training/myset/MySetDetail";
+import EditMySetPage from "./pages/training/myset/edit";
+import TrainingStartPage from "./pages/training/myset/start";
 
 function App() {
   useEffect(() => {
@@ -113,6 +118,47 @@ function App() {
                     element={
                       <ProtectedRoute>
                         <TrainingEditPage />
+                      </ProtectedRoute>
+                    }
+                  ></Route>
+                  {/** マイセット管理 */}
+                  <Route
+                    path="/training/myset"
+                    element={
+                      <ProtectedRoute>
+                        <MySetListContent />
+                      </ProtectedRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/training/myset/create"
+                    element={
+                      <ProtectedRoute>
+                        <CreateMySetPage />
+                      </ProtectedRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/training/myset/:id/edit"
+                    element={
+                      <ProtectedRoute>
+                        <EditMySetPage />
+                      </ProtectedRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/training/myset/:id/start"
+                    element={
+                      <ProtectedRoute>
+                        <TrainingStartPage />
+                      </ProtectedRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/training/myset/:id"
+                    element={
+                      <ProtectedRoute>
+                        <MySetDetailPage />
                       </ProtectedRoute>
                     }
                   ></Route>
