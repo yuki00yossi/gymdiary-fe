@@ -132,7 +132,7 @@ export default function TrainingEditPage() {
           <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
             <ChevronLeft className="h-5 w-5" />
           </Button>
-          <h1 className="text-3xl font-bold">トレ編集</h1>
+          <h1 className="text-2xl font-bold">トレ編集</h1>
         </div>
 
         <Form {...form}>

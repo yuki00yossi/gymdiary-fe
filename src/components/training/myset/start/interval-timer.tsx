@@ -139,7 +139,7 @@ export function IntervalTimer({
               key={seconds}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className={`text-3xl font-mono font-bold ${getTimerColor()}`}
+              className={`text-2xl font-mono font-bold ${getTimerColor()}`}
             >
               {formatTime(seconds)}
             </motion.div>

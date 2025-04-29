@@ -260,7 +260,7 @@ export default function MealAddPage() {
           >
             <ChevronLeft className="h-5 w-5" />
           </Button>
-          <h1 className="text-3xl font-bold">食事を記録</h1>
+          <h1 className="text-2xl font-bold">食事を記録</h1>
         </div>
 
         <Form {...form}>

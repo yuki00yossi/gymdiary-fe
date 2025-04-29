@@ -54,7 +54,7 @@ export default function WeightPage() {
     <AnimatedPage>
       <div className="p-4 h-full w-full md:container md:mx-auto md:p-6 space-y-6">
         <div className="w-full flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-          <h1 className="text-3xl font-bold">体重管理</h1>
+          <h1 className="text-2xl font-bold">体重管理</h1>
 
           <div className="flex w-full">
             <Button

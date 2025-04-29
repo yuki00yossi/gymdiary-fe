@@ -59,7 +59,7 @@ export default function TrainingDetailPage() {
           >
             <ChevronLeft className="h-5 w-5" />
           </Button>
-          <h1 className="text-3xl font-bold">トレ情報</h1>
+          <h1 className="text-2xl font-bold">トレ情報</h1>
         </div>
 
         <div className="space-y-6">
