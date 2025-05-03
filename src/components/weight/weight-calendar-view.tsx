@@ -18,6 +18,42 @@ export function WeightCalendarView({
 }: WeightCalendarViewProps) {
   return (
     <div className="space-y-6">
+      {selectedDate && (
+        <Card>
+          <CardContent className="px-6">
+            <div className="space-y-2">
+              <div className="space-y-1">
+                <h3 className="font-semibold text-lg">
+                  {format(selectedDate, "yyyy年MM月dd日", { locale: ja })}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {format(selectedDate, "EEEE", { locale: ja })}
+                </p>
+              </div>
+              {weightData[format(selectedDate, "yyyy-MM-dd")] ? (
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">Weight</p>
+                    <p className="text-2xl font-bold">
+                      {weightData[format(selectedDate, "yyyy-MM-dd")].weight}kg
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">Body Fat</p>
+                    <p className="text-2xl font-bold">
+                      {weightData[format(selectedDate, "yyyy-MM-dd")].fat}%
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  No data recorded
+                </p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
       <Card>
         <CardContent className="p-0">
           <Calendar
@@ -102,43 +138,6 @@ export function WeightCalendarView({
           />
         </CardContent>
       </Card>
-
-      {selectedDate && (
-        <Card>
-          <CardContent className="p-6">
-            <div className="space-y-4">
-              <div className="space-y-1">
-                <h3 className="font-semibold text-lg">
-                  {format(selectedDate, "yyyy年MM月dd日", { locale: ja })}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {format(selectedDate, "EEEE", { locale: ja })}
-                </p>
-              </div>
-              {weightData[format(selectedDate, "yyyy-MM-dd")] ? (
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <p className="text-sm text-muted-foreground">Weight</p>
-                    <p className="text-2xl font-bold">
-                      {weightData[format(selectedDate, "yyyy-MM-dd")].weight}kg
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm text-muted-foreground">Body Fat</p>
-                    <p className="text-2xl font-bold">
-                      {weightData[format(selectedDate, "yyyy-MM-dd")].fat}%
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <p className="text-sm text-muted-foreground">
-                  No data recorded
-                </p>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 }

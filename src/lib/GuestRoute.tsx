@@ -11,8 +11,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoading && !isLoggedIn) {
-      navigate("/login");
+    if (!isLoading && isLoggedIn) {
+      navigate("/weight");
     }
   }, [isLoading, isLoggedIn, navigate]);
 
@@ -21,9 +21,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   if (isLoggedIn) {
-    return children;
-  } else {
     return null;
+  } else {
+    return children;
   }
 };
 

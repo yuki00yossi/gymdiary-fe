@@ -22,7 +22,7 @@ export function SiteHeader() {
                 className="object-contain"
               />
             </div>
-            <span className="hidden font-bold sm:inline-block bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+            <span className="font-bold sm:inline-block bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
               Gym Diary
             </span>
           </NavLink>

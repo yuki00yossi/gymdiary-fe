@@ -172,27 +172,6 @@ export function MySetForm({ initialData, isEditing = false }: MySetFormProps) {
           />
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-bold">種目</h2>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                appendWorkout({
-                  menu: "",
-                  type: "weight",
-                  unit: "kg",
-                  sets: [
-                    {
-                      weight: 0,
-                      reps: 10,
-                    },
-                  ],
-                })
-              }
-            >
-              <Plus className="mr-1 h-4 w-4" />
-              種目を追加
-            </Button>
           </div>
           {workoutFields.map((workoutField, workoutIndex) => {
             return (
@@ -235,6 +214,31 @@ export function MySetForm({ initialData, isEditing = false }: MySetFormProps) {
               </Button>
             </div>
           )}
+
+          <div className="mt-0">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-full"
+              onClick={() =>
+                appendWorkout({
+                  menu: "",
+                  type: "weight",
+                  unit: "kg",
+                  sets: [
+                    {
+                      weight: 0,
+                      reps: 10,
+                    },
+                  ],
+                })
+              }
+            >
+              <Plus className="mr-1 h-4 w-4" />
+              種目を追加
+            </Button>
+          </div>
 
           <div className="flex justify-end">
             <Button type="submit" disabled={isSubmitting} className="w-full">
@@ -365,29 +369,6 @@ function WorkoutCard({
           <div className="mt-4">
             <div className="flex items-center justify-between mb-2">
               <h4 className="text-sm font-medium">セット</h4>
-              <Button
-                type="button"
-                variant="outline"
-                className="text-xs"
-                size="sm"
-                onClick={() => {
-                  const type = form.getValues(`workouts.${workoutIndex}.type`);
-                  if (type === "weight") {
-                    appendSet({
-                      weight: 0,
-                      reps: 10,
-                    });
-                  } else {
-                    appendSet({
-                      distance: 0,
-                      time: "00:00",
-                    });
-                  }
-                }}
-              >
-                <Plus className="h-3.5 w-3.5 mr-1" />
-                セット追加
-              </Button>
             </div>
 
             <div className="space-y-3 mb-4">
@@ -521,6 +502,31 @@ function WorkoutCard({
                   </motion.div>
                 );
               })}
+            </div>
+            <div className="mb-6">
+              <Button
+                type="button"
+                variant="outline"
+                className="text-xs w-full"
+                size="sm"
+                onClick={() => {
+                  const type = form.getValues(`workouts.${workoutIndex}.type`);
+                  if (type === "weight") {
+                    appendSet({
+                      weight: 0,
+                      reps: 10,
+                    });
+                  } else {
+                    appendSet({
+                      distance: 0,
+                      time: "00:00",
+                    });
+                  }
+                }}
+              >
+                <Plus className="h-3.5 w-3.5 mr-1" />
+                セット追加
+              </Button>
             </div>
 
             {setFields.length === 0 && (

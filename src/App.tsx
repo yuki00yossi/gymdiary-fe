@@ -28,6 +28,7 @@ import CreateMySetPage from "./pages/training/myset/create";
 import MySetDetailPage from "./pages/training/myset/MySetDetail";
 import EditMySetPage from "./pages/training/myset/edit";
 import TrainingStartPage from "./pages/training/myset/start";
+import GuestRoute from "./lib/GuestRoute";
 
 function App() {
   useEffect(() => {
@@ -73,12 +74,26 @@ function App() {
                       </ProtectedRoute>
                     }
                   ></Route>
-                </Routes>
-                {/** ユーザー用アプリのルーティング  */}
-                <Routes>
+
+                  {/** ユーザー用アプリのルーティング  */}
+
                   {/**  */}
-                  <Route path="/" element={<SignupPage />}></Route>
-                  <Route path="/signup" element={<SignupPage />}></Route>
+                  <Route
+                    path="/"
+                    element={
+                      <GuestRoute>
+                        <SignupPage />
+                      </GuestRoute>
+                    }
+                  ></Route>
+                  <Route
+                    path="/signup"
+                    element={
+                      <GuestRoute>
+                        <SignupPage />
+                      </GuestRoute>
+                    }
+                  ></Route>
                   {/** 体重管理 */}
                   <Route
                     path="/weight"
@@ -208,7 +223,14 @@ function App() {
                   ></Route>
 
                   {/* アカウント関連 */}
-                  <Route path="/login" element={<LoginPage />}></Route>
+                  <Route
+                    path="/login"
+                    element={
+                      <GuestRoute>
+                        <LoginPage />
+                      </GuestRoute>
+                    }
+                  ></Route>
                   <Route
                     path="/account/email_verification"
                     element={<VerifyEmailPage />}
