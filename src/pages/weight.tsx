@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, Plus } from "lucide-react";
-import { WeightList } from "@/components/weight/weight-list";
 import { WeightCalendarView } from "@/components/weight/weight-calendar-view";
 import { WeightChartView } from "@/components/weight/weight-chart-view";
 import { WeightFormModal } from "@/components/weight/weight-form-modal";
@@ -20,7 +19,6 @@ export default function WeightPage() {
   const [showWeightModal, setShowWeightModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const { apiFetch } = useAuth();
-  const [weightData, setWeightData] = useState<weightDataList>([]);
   const [calendarData, setCalendarData] = useState<weightCalendarDataList>({});
 
   useEffect(() => {
@@ -45,7 +43,6 @@ export default function WeightPage() {
     const weightURL = import.meta.env.VITE_API_ROOT + "/weight/";
     const res = await apiFetch(weightURL);
     const data: weightDataList = await res.json();
-    setWeightData(data);
 
     _setCalendarData(data);
   };
