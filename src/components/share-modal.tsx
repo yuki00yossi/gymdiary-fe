@@ -51,6 +51,7 @@ export function ShareModal({
       setImages(generatedImages);
     } catch (error) {
       console.error("画像生成エラー:", error);
+      alert(error);
     } finally {
       setIsGenerating(false);
     }

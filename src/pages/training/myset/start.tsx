@@ -51,17 +51,20 @@ export default function TrainingStartPage() {
       try {
         const mysetData = await getMySetForTraining(mysetId);
         setSessionData(mysetData);
-
-        const prevData = await getPreviousSession(mysetId);
-        setPreviousData(prevData);
       } catch (error) {
         console.error("データ取得エラー:", error);
         toast.error("エラー", {
           description: "トレーニングデータの取得に失敗しました",
         });
-      } finally {
-        setLoading(false);
       }
+
+      try {
+        const prevData = await getPreviousSession(mysetId);
+        setPreviousData(prevData);
+      } catch (e) {
+        console.log(e);
+      }
+      setLoading(false);
     };
 
     fetchData();

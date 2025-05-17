@@ -59,7 +59,7 @@ export default function WeightPage() {
           <div className="flex w-full">
             <Button
               onClick={() => setShowWeightModal(true)}
-              className="bg-primary hover:bg-primary/90 cursor-pointer ml-auto"
+              className="bg-primary hover:bg-primary/90 text-xs cursor-pointer ml-auto"
             >
               <Plus className="mr-2 h-4 w-4" />
               体重記録
@@ -105,7 +105,7 @@ export default function WeightPage() {
           ) : (
             <WeightChartView />
           )}
-          <WeightList WeightData={weightData} />
+          {/* <WeightList WeightData={weightData} /> */}
         </div>
 
         <WeightFormModal

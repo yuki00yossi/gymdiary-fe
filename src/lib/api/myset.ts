@@ -152,7 +152,6 @@ import ApiClient from "../ApiClient"
   // 前回のトレーニングセッションを取得
   export async function getPreviousSession(mysetId: number): Promise<PreviousSessionData | null> {
     const response = await ApiClient.get(`/training/mysets/${mysetId}/record/`);
-    console.log(response.data);
     return response.data;
   }
 
