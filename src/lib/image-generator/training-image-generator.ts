@@ -12,7 +12,6 @@ const MAX_WORKOUTS_PER_IMAGE = 3
  */
 export async function generateTrainingImages(
   sessionData: TrainingSessionData,
-  previousData: any = null,
   config: Partial<ImageConfig> = {},
 ): Promise<string[]> {
   // 設定をマージ
