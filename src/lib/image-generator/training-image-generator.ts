@@ -37,7 +37,7 @@ export async function generateTrainingImages(
     drawHeader(ctx, sessionData, i + 1, workoutChunks.length, mergedConfig)
 
     // 種目を描画
-    drawWorkouts(ctx, workouts, previousData, mergedConfig)
+    drawWorkouts(ctx, workouts, mergedConfig)
 
     // フッターを描画
     drawFooter(ctx, mergedConfig)
@@ -95,7 +95,7 @@ function drawHeader(
 }
 
 // 種目を描画する関数も更新して、縦のパディングを増やす
-function drawWorkouts(ctx: CanvasRenderingContext2D, workouts: any[], config: ImageConfig, _mergedConfig: { width: number; height: number; padding: number; backgroundColor: string; textColor: string; accentColor: string; fontFamily: string; titleFontSize: number; subtitleFontSize: number; normalFontSize: number; smallFontSize: number }) {
+function drawWorkouts(ctx: CanvasRenderingContext2D, workouts: any[], config: ImageConfig) {
   const { width, padding, textColor, fontFamily, subtitleFontSize, normalFontSize, smallFontSize } = config
 
   // ヘッダー下の開始Y位置（パディングを増やす）
